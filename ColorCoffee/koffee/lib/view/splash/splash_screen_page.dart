@@ -28,12 +28,33 @@ class _SplashScreenState extends State<SplashScreen> {
     Color(0xFFE6CCB2),
     Color(0xFFEDE0D4),
   ];
+
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3)).then((__) =>
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomePage())));
+    Future.delayed(const Duration(seconds: 3))
+        .then((__) => Navigator.pushReplacement(context, _createRoute()));
     super.initState();
+  }
+
+  Route _createRoute() {
+    return PageRouteBuilder(
+      transitionDuration: const Duration(seconds: 1),
+      opaque: false,
+      pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 1.0);
+        const end = Offset.zero;
+        const curve = Curves.ease;
+
+        var tween =
+            Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+        return SlideTransition(
+          position: animation.drive(tween),
+          child: child,
+        );
+      },
+    );
   }
 
   @override
