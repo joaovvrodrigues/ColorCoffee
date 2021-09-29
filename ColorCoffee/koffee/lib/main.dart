@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:koffee/theme/theme.dart';
-import 'package:provider/provider.dart';
+import 'package:koffee/view/splash_screen/splash_screen_page.dart';
 
-import 'view/home/home_page.dart';
+import 'theme/theme.dart';
 
 void configLoading() {
   EasyLoading.instance
@@ -24,25 +23,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ThemeChanger>(create: (_) => ThemeChanger(koffeTheme)),
-      ],
-      child: const MaterialAppWithTheme(),
-    );
-  }
-}
+    // MultiProvider(
+    //   providers: [
+    //     ChangeNotifierProvider<ThemeChanger>(
+    //         create: (_) => ThemeChanger(koffeTheme)),
+    //   ],
 
-class MaterialAppWithTheme extends StatelessWidget {
-  const MaterialAppWithTheme({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = context.watch<ThemeChanger>();
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: theme.getTheme,
-      home: const MyHomePage(),
+      theme: AppTheme.koffeTheme,
+      home: const SplashScreen(),
       builder: EasyLoading.init(),
     );
   }
