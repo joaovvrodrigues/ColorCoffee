@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:koffee/model/roast.dart';
-import 'package:koffee/view/color/color_controller.dart';
+import '../../model/roast.dart';
+import 'color_controller.dart';
 
 class ColorPage extends StatefulWidget {
   const ColorPage({Key? key}) : super(key: key);

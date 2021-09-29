@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:koffee/view/splash_screen/splash_screen_page.dart';
+import 'view/splash/splash_screen_page.dart';
 
 import 'theme/theme.dart';
 

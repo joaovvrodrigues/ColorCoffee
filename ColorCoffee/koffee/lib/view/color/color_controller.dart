@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
-import 'package:koffee/model/roast.dart';
+import '../../model/roast.dart';
 
 class ColorControll {
   static const uploadUrl = 'http://192.168.1.29:33/api/send';
@@ -39,7 +39,7 @@ class ColorControll {
     EasyLoading.show(status: 'Enviando...');
 
     Uri postUri = Uri.parse(uploadUrl);
-    http.MultipartRequest request = http.MultipartRequest("POST", postUri);
+    http.MultipartRequest request = http.MultipartRequest('POST', postUri);
 
     request.files.add(http.MultipartFile(
         'file', image.readAsBytes().asStream(), await image.length(),
