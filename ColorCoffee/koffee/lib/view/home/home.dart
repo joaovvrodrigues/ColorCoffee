@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../test/teste_page.dart';
 import '../color/color_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -41,17 +42,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pageController,
         onPageChanged: _onPageChanged,
-        children: <Widget>[
-          ListView.builder(
-              itemCount: 120,
-              itemBuilder: (context, a) => Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Text(a.toString()),
-                    ),
-                  )),
-          const ColorPage()
-        ],
+        children: const <Widget>[PagerPageWidget(), ColorPage()],
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
         behaviour: SnakeBarBehaviour.floating,
@@ -81,50 +72,5 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       _selectedItemPosition = page;
     });
-  }
-}
-
-class PagerPageWidget extends StatelessWidget {
-  final String? text;
-  final String? description;
-  final TextStyle titleStyle =
-      const TextStyle(fontSize: 40, fontFamily: 'SourceSerifPro');
-  final TextStyle subtitleStyle = const TextStyle(
-    fontSize: 20,
-    fontFamily: 'Ubuntu',
-    fontWeight: FontWeight.w200,
-  );
-
-  const PagerPageWidget({
-    Key? key,
-    this.text,
-    this.description,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(24),
-      child: SafeArea(child: _portraitWidget()),
-    );
-  }
-
-  Widget _portraitWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Text(text!, style: titleStyle),
-            const SizedBox(height: 16),
-            Text(description!, style: subtitleStyle),
-          ],
-        ),
-        const FlutterLogo()
-      ],
-    );
   }
 }
