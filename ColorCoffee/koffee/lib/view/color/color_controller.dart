@@ -5,7 +5,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
 import 'package:koffee/model/roast.dart';
 
-class HomeController {
+class ColorControll {
   static const uploadUrl = 'http://192.168.1.29:33/api/send';
   final ImagePicker _picker = ImagePicker();
 
