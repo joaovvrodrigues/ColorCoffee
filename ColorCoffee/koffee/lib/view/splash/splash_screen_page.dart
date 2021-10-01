@@ -1,4 +1,3 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../home/home.dart';
@@ -11,6 +10,7 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  double opacity = 0.0;
   final List<String> cafe = [
     'café',
     'кофе',
@@ -27,18 +27,22 @@ class _SplashScreenState extends State<SplashScreen> {
     Color(0xFFDDB892),
     Color(0xFFE6CCB2),
     Color(0xFFEDE0D4),
+    Color(0xFFFFF9F2)
   ];
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 3))
+    Future.delayed(const Duration(milliseconds: 500)).then((__) => setState(() {
+          opacity = 1.0;
+        }));
+    Future.delayed(const Duration(seconds: 2, milliseconds: 500))
         .then((__) => Navigator.pushReplacement(context, _createRoute()));
     super.initState();
   }
 
   Route _createRoute() {
     return PageRouteBuilder(
-      transitionDuration: const Duration(seconds: 1),
+      transitionDuration: const Duration(seconds: 1, milliseconds: 300),
       opaque: false,
       pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -75,17 +79,12 @@ class _SplashScreenState extends State<SplashScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text('Color', style: colorizeTextStyle),
-              AnimatedTextKit(
-                animatedTexts: [
-                  for (var coffee in cafe)
-                    ColorizeAnimatedText(coffee,
-                        textStyle: colorizeTextStyle,
-                        colors: colorizeColors,
-                        speed: const Duration(milliseconds: 200)),
-                ],
-                pause: const Duration(milliseconds: 150),
-                isRepeatingAnimation: false,
-              ),
+              AnimatedOpacity(
+                  duration: const Duration(seconds: 2),
+                  opacity: opacity,
+                  child: Text('coffee',
+                      style: colorizeTextStyle.copyWith(
+                          color: const Color(0xFF9C6644)))),
             ],
           )
         ],
