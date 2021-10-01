@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../test/teste_page.dart';
+import '../central/central_page.dart';
 import '../color/color_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,10 +30,12 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         title: RichText(
           text: TextSpan(
-            text: 'Collor',
+            text: 'Color',
             style: colorizeTextStyle,
             children: const <TextSpan>[
-              TextSpan(text: 'coffee', style: TextStyle(color: Colors.brown)),
+              TextSpan(
+                  text: 'coffee',
+                  style: TextStyle(color: Color(0xFFD4A056))) //Colors.brown)),
             ],
           ),
         ),
@@ -42,7 +45,7 @@ class _HomePageState extends State<HomePage> {
       body: PageView(
         controller: pageController,
         onPageChanged: _onPageChanged,
-        children: const <Widget>[PagerPageWidget(), ColorPage()],
+        children: const <Widget>[PagerPageWidget(), CentralPage(), ColorPage()],
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
         behaviour: SnakeBarBehaviour.floating,
@@ -60,9 +63,8 @@ class _HomePageState extends State<HomePage> {
               curve: Curves.easeOut);
         }),
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'home'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.podcasts), label: 'microphone'),
+          BottomNavigationBarItem(icon: Icon(Icons.home)),
+          BottomNavigationBarItem(icon: Icon(Icons.camera_enhance)),
         ],
       ),
     );
