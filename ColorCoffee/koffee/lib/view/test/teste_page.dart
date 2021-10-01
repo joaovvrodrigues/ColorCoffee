@@ -4,6 +4,7 @@ import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../theme/theme.dart';
 
 class PagerPageWidget extends StatefulWidget {
   final String? text;
@@ -27,50 +28,69 @@ class _PagerPageWidgetState extends State<PagerPageWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(24),
-      child: SafeArea(child: _portraitWidget()),
-    );
+        padding: const EdgeInsets.all(24),
+        child: SafeArea(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            // Image.asset(
+            //   'assets/gifs/enquadrarFotoAndroid.gif',
+            //   width: 200.0,
+            // ),
+            if (croppedFile != null) Image.file(croppedFile!),
+            ElevatedButton(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.camera_alt_rounded),
+                  Text('  Capturar imagem'),
+                ],
+              ),
+              style: AppTheme.elevatedButtonStyle,
+              onPressed: takePhoto,
+            ),
+            ElevatedButton(
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  Icon(Icons.photo_library_rounded),
+                  Text('  Selecionar imagem'),
+                ],
+              ),
+              style: AppTheme.elevatedButtonStyle,
+              onPressed: pickImage,
+            )
+          ],
+        )));
   }
 
-  Widget _portraitWidget() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        const FlutterLogo(),
-        if (croppedFile != null) Image.file(croppedFile!),
-        ElevatedButton(
-          child: const Text('take image'),
-          onPressed: () async {
-            await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (_) => CameraCamera(
-                          onFile: (file) {
-                            imagePath = file.path;
-                            Navigator.pop(context);
-                            setState(() {});
-                          },
-                        )));
+  void takePhoto() async {
+    await Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => CameraCamera(
+                  onFile: (file) {
+                    imagePath = file.path;
+                    Navigator.pop(context);
+                    setState(() {});
+                  },
+                )));
 
-            if (imagePath != null) {
-              await cropImage(imagePath!);
-            }
-          },
-        ),
-        ElevatedButton(
-          child: const Text('pick image'),
-          onPressed: () async {
-            XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    if (imagePath != null) {
+      await cropImage(imagePath!);
+    }
+  }
 
-            if (image != null) {
-              await cropImage(image.path);
-            }
-          },
-        )
-      ],
-    );
+  void pickImage() async {
+    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    if (image != null) {
+      await cropImage(image.path);
+    }
   }
 
   Future<void> cropImage(String path) async {
