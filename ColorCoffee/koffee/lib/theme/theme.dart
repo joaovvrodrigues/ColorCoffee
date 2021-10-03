@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 // class ThemeChanger extends ChangeNotifier {
 //   ThemeData _themeData;
@@ -85,7 +86,10 @@ class AppTheme {
   //         builders: <TargetPlatform, PageTransitionsBuilder>{
   //           TargetPlatform.android: ZoomPageTransitionsBuilder()
   //         }));
+ static final  appBarText = GoogleFonts.sourceSansPro(
+      color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600);
 
+      
   InputDecoration inputDecoration(IconData icon) {
     return InputDecoration(
         filled: true,

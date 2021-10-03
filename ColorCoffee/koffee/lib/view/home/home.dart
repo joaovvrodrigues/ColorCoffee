@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import 'package:google_fonts/google_fonts.dart';
+import '../../theme/theme.dart';
 import '../test/teste_page.dart';
 import '../central/central_page.dart';
 import '../color/color_page.dart';
@@ -16,9 +16,6 @@ class _HomePageState extends State<HomePage> {
   int _selectedItemPosition = 0;
   PageController pageController = PageController();
 
-  final colorizeTextStyle = GoogleFonts.sourceSansPro(
-      color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,7 +28,7 @@ class _HomePageState extends State<HomePage> {
         title: RichText(
           text: TextSpan(
             text: 'Color',
-            style: colorizeTextStyle,
+            style: AppTheme.appBarText,
             children: const <TextSpan>[
               TextSpan(
                   text: 'coffee',
@@ -43,6 +40,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.transparent,
       ),
       body: PageView(
+        physics: const BouncingScrollPhysics(),
         controller: pageController,
         onPageChanged: _onPageChanged,
         children: const <Widget>[PagerPageWidget(), CentralPage(), ColorPage()],
