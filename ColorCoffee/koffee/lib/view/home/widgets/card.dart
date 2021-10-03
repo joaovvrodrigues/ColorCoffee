@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../model/card_info.dart';
 import '../../../theme/theme.dart';
 import '../../description/description_page.dart';
 
@@ -6,28 +7,20 @@ import '../../description/description_page.dart';
 class CardWithText extends StatelessWidget {
   const CardWithText({
     Key? key,
-    required this.imageUrl,
-    required this.title,
-    required this.subtitle,
-    required this.index,
+    required this.cardInfo
   }) : super(key: key);
-
-  final String imageUrl;
-  final String title;
-  final String subtitle;
-  final int index;
+  final CardInfo cardInfo;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const DescriptionPage())),
+            MaterialPageRoute(builder: (context) =>  DescriptionPage(cardInfo: cardInfo))),
         child: Container(
           height: MediaQuery.of(context).size.height * 0.25,
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
           decoration: BoxDecoration(
-            image: DecorationImage(
-                image: NetworkImage(imageUrl), fit: BoxFit.cover),
+            image: DecorationImage(image: AssetImage(cardInfo.imagePath), fit: BoxFit.cover),
             borderRadius: BorderRadius.circular(AppTheme.radius),
           ),
           child: ClipRRect(
@@ -61,26 +54,29 @@ class CardWithText extends StatelessWidget {
     return Positioned(
       left: 20,
       bottom: 20,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
+      child: Hero(
+        tag: 'teste',
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              cardInfo.title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          Text(
-            subtitle,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 14,
+            Text(
+             cardInfo.subtitle,
+              style: const TextStyle(
+                color: Colors.white,
+                fontSize: 14,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -41,7 +41,6 @@ dependencies:
   http: ^0.13.3
   flutter_svg: ^0.22.0
   google_fonts: ^2.1.0
-  animated_text_kit: ^4.2.1
   image_cropper: ^1.4.1
   flutter_snake_navigationbar: ^0.5.0
 
@@ -65,6 +64,7 @@ flutter:
   assets:
     - assets/logo/
     - assets/gifs/
+    - assets/images/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

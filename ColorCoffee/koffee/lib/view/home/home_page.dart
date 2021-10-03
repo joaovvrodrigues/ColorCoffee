@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../constants/home_constants.dart';
 import 'widgets/card.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,13 +14,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scrollbar(
       child: ListView.builder(
-        itemCount: 6,
+        itemCount: 1,
         itemBuilder: (context, index) => CardWithText(
-          imageUrl:
-              'https://cdn.shopify.com/s/files/1/0017/8585/6070/files/Color-changes_1024x1024.jpg?v=1552090641',
-          title: 'Escala',
-          subtitle: 'Agtron',
-          index: index,
+          cardInfo: homeConstants[index],
         ),
       ),
     );
