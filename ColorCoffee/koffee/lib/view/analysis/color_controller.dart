@@ -9,7 +9,6 @@ import '../../model/roast.dart';
 class ColorControll {
   static const uploadUrl = 'http://192.168.1.29:33/api/send';
 
-  Color color = Colors.brown;
   final ValueNotifier<Roast?> roast = ValueNotifier<Roast?>(null);
 
   Future<void> getRandomColor() async {
@@ -27,8 +26,6 @@ class ColorControll {
     } finally {
       if (response != null && response.statusCode == 200) {
         roast.value = Roast.fromJson(response.body);
-        color = Color.fromARGB(
-            255, roast.value!.rgb[0], roast.value!.rgb[1], roast.value!.rgb[2]);
       }
     }
   }
@@ -64,8 +61,6 @@ class ColorControll {
                 await http.Response.fromStream(streamedResponse);
 
             roast.value = Roast.fromJson(response.body);
-            color = Color.fromARGB(255, roast.value!.rgb[0],
-                roast.value!.rgb[1], roast.value!.rgb[2]);
             break;
 
           case 400:
