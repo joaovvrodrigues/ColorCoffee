@@ -28,13 +28,7 @@ class _ColorPageState extends State<ColorPage> {
             builder: (BuildContext context, Roast? value, __) {
               return Center(
                 child: value == null
-                    ? Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Image.asset(
-                          'assets/gifs/enquadrarFotoAndroid.gif',
-                          width: 200.0,
-                        ),
-                      )
+                    ? SizedBox()
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -108,6 +102,7 @@ class _AtencaoDialogState extends State<AtencaoDialog> {
         child: Scrollbar(
           controller: _scrollController,
           isAlwaysShown: true,
+          showTrackOnHover: true,
           child: ListView(
             controller: _scrollController,
             shrinkWrap: true,
@@ -129,8 +124,8 @@ class _AtencaoDialogState extends State<AtencaoDialog> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
-                  'assets/gifs/enquadrarFotoAndroid.gif',
-                  width: 200.0,
+                  'assets/gifs/enqFotoAndroid.gif',
+                  height: 300,
                 ),
               ),
               ElevatedButton(
