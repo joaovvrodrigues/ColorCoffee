@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
-import '../analysis/analysis_page.dart';
+import '../get_image/get_image_page.dart';
 import '../home/home_page.dart';
 import '../../theme/theme.dart';
 
@@ -42,7 +42,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         physics: const BouncingScrollPhysics(),
         controller: pageController,
         onPageChanged: _onPageChanged,
-        children: const <Widget>[HomePage(), AnalysisPage()],
+        children: const <Widget>[HomePage(), GetImagePage()],
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
         behaviour: SnakeBarBehaviour.floating,

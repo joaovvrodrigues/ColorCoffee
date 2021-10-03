@@ -1,112 +1,77 @@
-import 'dart:io';
-
-import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
-import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
-import 'widgets/elevated_button.dart';
-import 'widgets/tutorial_dialog.dart';
+import '../../model/roast.dart';
+import 'color_controller.dart';
 
 class AnalysisPage extends StatefulWidget {
-  const AnalysisPage({
-    Key? key,
-  }) : super(key: key);
+  const AnalysisPage({Key? key}) : super(key: key);
 
   @override
   State<AnalysisPage> createState() => _AnalysisPageState();
 }
 
 class _AnalysisPageState extends State<AnalysisPage> {
-  final ImagePicker _picker = ImagePicker();
-  File? croppedFile;
-  String? imagePath;
+  ColorControll controller = ColorControll();
+  Color? containerColor = const Color(0xFFFFF9F2);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(24),
-        child: SafeArea(
-            child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            if (croppedFile != null) Image.file(croppedFile!),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: CustomButton(
-                  icon: Icons.camera_alt_rounded,
-                  text: 'Capturar imagem',
-                  onPressed: takePhoto),
-            ),
-            CustomButton(
-                icon: Icons.photo_library_rounded,
-                text: 'Selecionar imagem',
-                onPressed: pickImage)
-          ],
-        )));
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      resizeToAvoidBottomInset: true,
+      extendBody: true,
+      body: AnimatedContainer(
+        color: containerColor,
+        duration: const Duration(seconds: 1),
+        child: ValueListenableBuilder<Roast?>(
+            valueListenable: controller.roast,
+            builder: (BuildContext context, Roast? value, __) {
+              return Center(
+                child: value == null
+                    ? const SizedBox()
+                    : Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          const Text(
+                            'Amostra',
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 180,
+                              width: 180,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  color: controller.color),
+                            ),
+                          ),
+                          const Text('Agtron', style: TextStyle(fontSize: 22)),
+                          Text(value.prediction,
+                              style: const TextStyle(fontSize: 60)),
+                          const SizedBox(height: 20),
+                          const Text('confiança'),
+                          Text('${value.confidence}%'),
+                        ],
+                      ),
+              );
+            }),
+      ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 62),
+        child: FloatingActionButton(
+          onPressed: () async {
+            await controller.getRandomColor();
+            changeTheme();
+          },
+          tooltip: 'Send Image',
+          child: const Icon(Icons.camera_enhance_rounded),
+        ),
+      ),
+    );
   }
 
-  void takePhoto() async {
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => CameraCamera(
-                  onFile: (file) {
-                    imagePath = file.path;
-                    Navigator.pop(context);
-                    setState(() {});
-                  },
-                )));
-
-    if (imagePath != null) {
-      await cropImage(imagePath!);
-    }
-  }
-
-  void pickImage() async {
-    XFile? image = await _picker.pickImage(source: ImageSource.gallery);
-
-    if (image != null) {
-      await cropImage(image.path);
-    }
-  }
-
-  Future<void> cropImage(String path) async {
-    bool? according = await showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return const TutorialDialog();
-        });
-    if (according != null) {
-      croppedFile = await ImageCropper.cropImage(
-          sourcePath: path,
-          cropStyle: CropStyle.rectangle,
-          maxHeight: 180,
-          maxWidth: 180,
-          aspectRatioPresets: [
-            CropAspectRatioPreset.square,
-          ],
-          androidUiSettings: AndroidUiSettings(
-              activeControlsWidgetColor: Colors.brown,
-              hideBottomControls: true,
-              showCropGrid: true,
-              toolbarTitle: 'Enquadre a amostra',
-              toolbarColor: Colors.brown,
-              toolbarWidgetColor: Colors.white,
-              initAspectRatio: CropAspectRatioPreset.square,
-              cropGridRowCount: 0,
-              cropGridColumnCount: 0,
-              dimmedLayerColor: Colors.black.withAlpha(180),
-              lockAspectRatio: true),
-          iosUiSettings: const IOSUiSettings(
-            title: 'Enquadre a amostra',
-            doneButtonTitle: 'Enviar',
-            cancelButtonTitle: 'Cancelar',
-            showCancelConfirmationDialog: true,
-            minimumAspectRatio: 1.0,
-          ));
-    }
-    setState(() {});
+  void changeTheme() {
+    setState(() {
+      containerColor = controller.color.withAlpha(210);
+    });
   }
 }
