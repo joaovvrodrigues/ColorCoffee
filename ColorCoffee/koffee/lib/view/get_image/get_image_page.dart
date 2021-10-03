@@ -117,8 +117,8 @@ class _GetImagePageState extends State<GetImagePage> {
           ));
 
       if (croppedFile != null) {
-        Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) => const AnalysisPage()));
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => AnalysisPage(image: croppedFile)));
       }
     }
     setState(() {});

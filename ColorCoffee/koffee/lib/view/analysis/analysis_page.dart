@@ -1,11 +1,17 @@
-import 'package:flutter/material.dart';
-import '../../model/roast.dart';
-import 'color_controller.dart';
+import 'dart:io';
 import 'dart:math';
 
-class AnalysisPage extends StatefulWidget {
-  const AnalysisPage({Key? key}) : super(key: key);
+import 'package:flutter/material.dart';
 
+import '../../model/roast.dart';
+import 'color_controller.dart';
+
+class AnalysisPage extends StatefulWidget {
+  const AnalysisPage({
+    Key? key,
+    this.image,
+  }) : super(key: key);
+  final File? image;
   @override
   State<AnalysisPage> createState() => _AnalysisPageState();
 }
@@ -17,18 +23,22 @@ class _AnalysisPageState extends State<AnalysisPage> {
 
   @override
   void initState() {
-    Future.delayed(const Duration(seconds: 2)).then((value) {
-      controller.roast.value = Roast(
-          color: 'Color',
-          prediction: rng.nextInt(100).toString(),
-          confidence: rng.nextInt(100).toString(),
-          rgb: [rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)]);
+    if (widget.image != null) {
+      controller.uploadImageToServer(widget.image!);
+    }
 
-      controller.color = Color.fromARGB(255, controller.roast.value!.rgb[0],
-          controller.roast.value!.rgb[1], controller.roast.value!.rgb[2]);
+    // Future.delayed(const Duration(seconds: 2)).then((value) {
+    //   controller.roast.value = Roast(
+    //       color: 'Color',
+    //       prediction: rng.nextInt(100).toString(),
+    //       confidence: rng.nextInt(100).toString(),
+    //       rgb: [rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)]);
 
-      changeTheme();
-    });
+    //   controller.color = Color.fromARGB(255, controller.roast.value!.rgb[0],
+    //       controller.roast.value!.rgb[1], controller.roast.value!.rgb[2]);
+
+    //   changeTheme();
+    // });
 
     super.initState();
   }
