@@ -6,21 +6,21 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../theme/theme.dart';
 
-class PagerPageWidget extends StatefulWidget {
+class AnalysisPage extends StatefulWidget {
   final String? text;
   final String? description;
 
-  const PagerPageWidget({
+  const AnalysisPage({
     Key? key,
     this.text,
     this.description,
   }) : super(key: key);
 
   @override
-  State<PagerPageWidget> createState() => _PagerPageWidgetState();
+  State<AnalysisPage> createState() => _AnalysisPageState();
 }
 
-class _PagerPageWidgetState extends State<PagerPageWidget> {
+class _AnalysisPageState extends State<AnalysisPage> {
   final ImagePicker _picker = ImagePicker();
   File? croppedFile;
   String? imagePath;

@@ -28,7 +28,7 @@ class _ColorPageState extends State<ColorPage> {
             builder: (BuildContext context, Roast? value, __) {
               return Center(
                 child: value == null
-                    ? SizedBox()
+                    ? const SizedBox()
                     : Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[

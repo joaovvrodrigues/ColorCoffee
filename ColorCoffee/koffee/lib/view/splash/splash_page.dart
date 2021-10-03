@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../home/home.dart';
+import '../bottom_navigation/bottom_navigation.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -44,7 +44,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return PageRouteBuilder(
       transitionDuration: const Duration(seconds: 1, milliseconds: 300),
       opaque: false,
-      pageBuilder: (context, animation, secondaryAnimation) => const HomePage(),
+      pageBuilder: (context, animation, secondaryAnimation) => const BottomNavigation(),
       transitionsBuilder: (context, animation, secondaryAnimation, child) {
         const begin = Offset(0.0, 1.0);
         const end = Offset.zero;

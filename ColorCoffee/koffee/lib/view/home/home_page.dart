@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../description/description_page.dart';
 import '../../widgets/card.dart';
 
-class CentralPage extends StatefulWidget {
-  const CentralPage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  _CentralPageState createState() => _CentralPageState();
+  _HomePageState createState() => _HomePageState();
 }
 
-class _CentralPageState extends State<CentralPage> {
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return ListView(

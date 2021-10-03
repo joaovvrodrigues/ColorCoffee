@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import '../analysis/analysis_page.dart';
+import '../home/home_page.dart';
 import '../../theme/theme.dart';
-import '../test/teste_page.dart';
-import '../central/central_page.dart';
-import '../color/color_page.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation({Key? key}) : super(key: key);
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _BottomNavigationState createState() => _BottomNavigationState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedItemPosition = 0;
   PageController pageController = PageController();
 
@@ -43,7 +42,7 @@ class _HomePageState extends State<HomePage> {
         physics: const BouncingScrollPhysics(),
         controller: pageController,
         onPageChanged: _onPageChanged,
-        children: const <Widget>[PagerPageWidget(), CentralPage(), ColorPage()],
+        children: const <Widget>[HomePage(), AnalysisPage()],
       ),
       bottomNavigationBar: SnakeNavigationBar.color(
         behaviour: SnakeBarBehaviour.floating,
