@@ -31,6 +31,11 @@ class _GetImagePageState extends State<GetImagePage> {
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             // if (croppedFile != null) Image.file(croppedFile!),
+            CustomButton(
+                icon: Icons.nat,
+                text: 'Navegar',
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const AnalysisPage()))),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: CustomButton(
@@ -111,8 +116,8 @@ class _GetImagePageState extends State<GetImagePage> {
           ));
 
       if (croppedFile != null) {
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => const AnalysisPage()));
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const AnalysisPage()));
       }
     }
     setState(() {});

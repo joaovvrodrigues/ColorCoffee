@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../model/roast.dart';
 import 'color_controller.dart';
+import 'dart:math';
 
 class AnalysisPage extends StatefulWidget {
   const AnalysisPage({Key? key}) : super(key: key);
@@ -12,6 +13,25 @@ class AnalysisPage extends StatefulWidget {
 class _AnalysisPageState extends State<AnalysisPage> {
   ColorControll controller = ColorControll();
   Color? containerColor = const Color(0xFFFFF9F2);
+  Random rng = Random();
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 2)).then((value) {
+      controller.roast.value = Roast(
+          color: 'Color',
+          prediction: rng.nextInt(100).toString(),
+          confidence: rng.nextInt(100).toString(),
+          rgb: [rng.nextInt(255), rng.nextInt(255), rng.nextInt(255)]);
+
+      controller.color = Color.fromARGB(255, controller.roast.value!.rgb[0],
+          controller.roast.value!.rgb[1], controller.roast.value!.rgb[2]);
+
+      changeTheme();
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,8 +57,8 @@ class _AnalysisPageState extends State<AnalysisPage> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              height: 180,
-                              width: 180,
+                              height: 100,
+                              width: 100,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
                                   color: controller.color),
@@ -47,7 +67,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
                           const Text('Agtron', style: TextStyle(fontSize: 22)),
                           Text(value.prediction,
                               style: const TextStyle(fontSize: 60)),
-                          const SizedBox(height: 20),
+                          const SizedBox(height: 10),
                           const Text('confiança'),
                           Text('${value.confidence}%'),
                         ],
@@ -55,16 +75,13 @@ class _AnalysisPageState extends State<AnalysisPage> {
               );
             }),
       ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.only(bottom: 62),
-        child: FloatingActionButton(
-          onPressed: () async {
-            await controller.getRandomColor();
-            changeTheme();
-          },
-          tooltip: 'Send Image',
-          child: const Icon(Icons.camera_enhance_rounded),
-        ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          await controller.getRandomColor();
+          changeTheme();
+        },
+        tooltip: 'Send Image',
+        child: const Icon(Icons.camera_enhance_rounded),
       ),
     );
   }

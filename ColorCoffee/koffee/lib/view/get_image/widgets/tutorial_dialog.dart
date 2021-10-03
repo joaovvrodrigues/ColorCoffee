@@ -14,7 +14,8 @@ class _TutorialDialogState extends State<TutorialDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0)), //this right here
+          borderRadius:
+              BorderRadius.circular(AppTheme.radius)), //this right here
       child: Padding(
         padding: const EdgeInsets.all(12.0),
         child: Scrollbar(
