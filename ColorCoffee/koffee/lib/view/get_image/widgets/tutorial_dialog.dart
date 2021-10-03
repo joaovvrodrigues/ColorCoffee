@@ -31,7 +31,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                   child: Text(
                     'Atenção',
                     style: TextStyle(
-                        color: Colors.black,
+                        color: AppTheme.black,
                         fontSize: 18.0,
                         fontWeight: FontWeight.w500),
                   )),
@@ -39,7 +39,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                   padding: EdgeInsets.all(5.0),
                   child: Text(
                       'Para que haja um bom reconhecimento da amostra de café, recorte a imagem preenchendo o quadrado com a amostra.',
-                      style: TextStyle(color: Colors.black, fontSize: 14.0))),
+                      style: TextStyle(color: AppTheme.black, fontSize: 14.0))),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Image.asset(

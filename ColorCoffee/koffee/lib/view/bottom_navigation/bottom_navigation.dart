@@ -22,7 +22,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
       resizeToAvoidBottomInset: true,
       extendBody: true,
       appBar: AppBar(
-        centerTitle: true,
         automaticallyImplyLeading: false,
         title: RichText(
           text: TextSpan(
@@ -35,8 +34,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
             ],
           ),
         ),
-        elevation: 0,
-        backgroundColor: Colors.transparent,
       ),
       body: PageView(
         physics: const BouncingScrollPhysics(),

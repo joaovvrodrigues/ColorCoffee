@@ -59,19 +59,19 @@ class Roast {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-  
+
     return other is Roast &&
-      other.color == color &&
-      other.prediction == prediction &&
-      other.confidence == confidence &&
-      listEquals(other.rgb, rgb);
+        other.color == color &&
+        other.prediction == prediction &&
+        other.confidence == confidence &&
+        listEquals(other.rgb, rgb);
   }
 
   @override
   int get hashCode {
     return color.hashCode ^
-      prediction.hashCode ^
-      confidence.hashCode ^
-      rgb.hashCode;
+        prediction.hashCode ^
+        confidence.hashCode ^
+        rgb.hashCode;
   }
 }

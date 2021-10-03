@@ -2,20 +2,27 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
-  AppTheme._();
+  const AppTheme._();
 
   static const double radius = 16.0;
 
+  static const Color black = Color(0xFF261603);
   static const Color background = Color(0xFFFDE1D7);
+  static const Color scaffoldBackgroundColor = Color(0xFFFFF9F2);
 
   static ThemeData koffeTheme = ThemeData(
-      floatingActionButtonTheme:  FloatingActionButtonThemeData(
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(radius)),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       ),
       brightness: Brightness.light,
-      scaffoldBackgroundColor: const Color(
-          0xFFFFF9F2), //const Color(0xFFE6CCB2), //Colors.brown[300],
+      appBarTheme: const AppBarTheme(
+        color: scaffoldBackgroundColor,
+        centerTitle: true,
+        elevation: 0,
+      ),
+      scaffoldBackgroundColor:
+          scaffoldBackgroundColor, //const Color(0xFFE6CCB2), //Colors.brown[300],
       textTheme: const TextTheme(
           bodyText1: TextStyle(color: Colors.white),
           bodyText2: TextStyle(color: Colors.white)),
@@ -25,10 +32,9 @@ class AppTheme {
             TargetPlatform.android: ZoomPageTransitionsBuilder()
           }));
 
- static final  appBarText = GoogleFonts.sourceSansPro(
-      color: Colors.black, fontSize: 24, fontWeight: FontWeight.w600);
+  static final appBarText = GoogleFonts.sourceSansPro(
+      color: black, fontSize: 24, fontWeight: FontWeight.w600);
 
-      
   InputDecoration inputDecoration(IconData icon) {
     return InputDecoration(
         filled: true,
@@ -46,7 +52,6 @@ class AppTheme {
       textStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
       minimumSize: const Size(120, 50),
       padding: const EdgeInsets.symmetric(horizontal: 40),
-      shape:  RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(radius)
-      ));
+      shape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)));
 }

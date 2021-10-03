@@ -48,7 +48,6 @@ E de cabeça vazia eu já vi o que aconteceu (Fala)
 Falar de mim é fácil, eu quero ver fazer o que eu faço
 Eu rimo sem perder o compasso enquanto o mundo se perdeu (Fala)''';
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +66,7 @@ Eu rimo sem perder o compasso enquanto o mundo se perdeu (Fala)''';
                     onPressed: () => Navigator.of(context).pop(),
                     icon: const Icon(
                       Icons.chevron_left_rounded,
-                      color: Colors.black,
+                      color: AppTheme.black,
                     )),
                 title: RichText(
                   text: TextSpan(
@@ -90,7 +89,7 @@ Eu rimo sem perder o compasso enquanto o mundo se perdeu (Fala)''';
                 child: Text('Titulo',
                     textAlign: TextAlign.center,
                     style: GoogleFonts.sourceSansPro(
-                        color: Colors.black,
+                        color: AppTheme.black,
                         fontSize: 30,
                         fontWeight: FontWeight.w600)),
               ),
@@ -136,7 +135,7 @@ Eu rimo sem perder o compasso enquanto o mundo se perdeu (Fala)''';
                 child: Text(letra,
                     textAlign: TextAlign.center,
                     style: GoogleFonts.sourceSansPro(
-                        color: Colors.black,
+                        color: AppTheme.black,
                         fontSize: 15,
                         fontWeight: FontWeight.w600)),
               ),

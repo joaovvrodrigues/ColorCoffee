@@ -4,6 +4,7 @@ import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import '../../theme/theme.dart';
 import '../analysis/analysis_page.dart';
 import 'widgets/elevated_button.dart';
 import 'widgets/tutorial_dialog.dart';
@@ -105,7 +106,7 @@ class _GetImagePageState extends State<GetImagePage> {
               initAspectRatio: CropAspectRatioPreset.square,
               cropGridRowCount: 0,
               cropGridColumnCount: 0,
-              dimmedLayerColor: Colors.black.withAlpha(180),
+              dimmedLayerColor: AppTheme.black.withAlpha(180),
               lockAspectRatio: true),
           iosUiSettings: const IOSUiSettings(
             title: 'Enquadre a amostra',

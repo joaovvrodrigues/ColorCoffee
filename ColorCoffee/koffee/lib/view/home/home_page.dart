@@ -11,23 +11,17 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: const [
-        CardWithText(
+    return Scrollbar(
+      child: ListView.builder(
+        itemCount: 6,
+        itemBuilder: (context, index) => CardWithText(
           imageUrl:
               'https://cdn.shopify.com/s/files/1/0017/8585/6070/files/Color-changes_1024x1024.jpg?v=1552090641',
           title: 'Escala',
           subtitle: 'Agtron',
-          index: 0,
+          index: index,
         ),
-        CardWithText(
-          imageUrl:
-              'https://coffeetranslator.com/wp-content/uploads/2018/03/types-of-roasting-coffee-1-1024x768-394x330.jpg',
-          title: 'Escala',
-          subtitle: 'Agtron',
-          index: 1,
-        ),
-      ],
+      ),
     );
   }
 }
