@@ -97,10 +97,10 @@ def create_data(HSV=False):
     else:
         header = ['R_mean', 'G_mean', 'B_mean', 'Agtron']
 
-    with open('agtron_values.txt') as lines:
+    with open('./data/agtron_values.txt') as lines:
         for line in lines:
             count += 1
-            img = read_img('photos/{}.png'.format(count))
+            img = read_img('./photos/{}.png'.format(count))
             img_cropped = crop_img(img)
 
             if HSV:
@@ -116,7 +116,7 @@ def create_data(HSV=False):
 
 
 def create_CSV(header, data, name):
-    with open('{}.csv'.format(name), 'w', encoding='UTF8', newline='') as f:
+    with open('./data/{}.csv'.format(name), 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         # Escreve o cabeçalho (header)
         writer.writerow(header)
