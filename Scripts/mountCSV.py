@@ -105,10 +105,10 @@ def create_data(HSV=False):
 
             if HSV:
                 H, S, V = split_channel(convert_HSV(img_cropped))
-                data.append([H, S, V, line.strip()])
+                data.append([H, S, V, 'Agtron {}'.format(line.strip())])
             else:
                 B, G, R = split_channel(img_cropped)
-                data.append([R, G, B, line.strip()])
+                data.append([R, G, B, 'Agtron {}'.format(line.strip())])
 
     print('{} dados processados!'.format(count))
 

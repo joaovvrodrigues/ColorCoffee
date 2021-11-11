@@ -1,0 +1,33 @@
+Rodando alguns testes do Weka com Cross-validation de 10 Folds:
+
+    =============================================================
+
+    HSV SEM normalização.
+    Correctly Classified Instances:
+
+    bayes.NaiveBayes:                   29.7619 %
+    trees.RandomForest:                 36.9048 %
+    lazy.IBk:                           28.5714 %
+    functions.MultilayerPerceptron:     38.0952 %
+
+    HSV COM normalização.
+    Correctly Classified Instances:
+
+    bayes.NaiveBayes:                   30.9524 %
+
+    =============================================================
+
+    RGB SEM normalização.
+    Correctly Classified Instances:
+
+    bayes.NaiveBayes:                   46.4286 %
+    trees.RandomForest:                 47.6190 %
+    lazy.IBk:                           34.5238 %
+    functions.MultilayerPerceptron:     45.2381 %
+
+    RGB COM normalização.
+    Correctly Classified Instances:
+
+    bayes.NaiveBayes:                   46.4286 %
+    
+    =============================================================
