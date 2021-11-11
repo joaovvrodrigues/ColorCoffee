@@ -2,8 +2,8 @@ import cv2
 import numpy as np
 import csv
 
-DOWN_WIDTH = 50
-DOWN_HEIGHT = 50
+DOWN_WIDTH = 128
+DOWN_HEIGHT = 128
 TOTAL_IMAGES = 84
 
 
@@ -118,10 +118,8 @@ def create_data(HSV=False):
 def create_CSV(header, data, name):
     with open('{}.csv'.format(name), 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
-
         # Escreve o cabeçalho (header)
         writer.writerow(header)
-
         # Escreve todas as linhas (data)
         writer.writerows(data)
 
