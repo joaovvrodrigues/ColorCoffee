@@ -3,13 +3,16 @@ import pandas as pd
 import joblib
 
 from sklearn import model_selection
-from sklearn import neural_network
+from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.tree import DecisionTreeClassifier
 
+from sklearn.model_selection import GridSearchCV
+
+
 HSV = False
 FILE = 'coffe_mean_rgb'
-EXPORT_NAME = 'classifier_{}.sav'.format(FILE)
+EXPORT_NAME = './classifiers/classifier_{}.sav'.format(FILE)
 
 
 def train_test_split():
@@ -29,7 +32,15 @@ def train_test_split():
 
 def classification(X_train, X_test, Y_train, Y_test):
     # Realizando a classificação com a base de treino e retornando modelo
-    model = RandomForestClassifier()
+
+    # Perceptron Multicamadas
+    # max_iter=2000, hidden_layer_sizes=200, solver = 'lbfgs')
+    model = MLPClassifier(max_iter=2000, activation='relu', hidden_layer_sizes=(
+        16,), solver='lbfgs', random_state=120)  # 60% de acerto
+
+    # Floresta Aleatória
+    # model = RandomForestClassifier(n_estimators = 100, max_features=None)
+
     model.fit(X_train, Y_train)
     print(model.score(X_test, Y_test))
 
@@ -54,6 +65,26 @@ def classifier_new_data(model):
     # Pegando modelo importante e dando predict em uma nova entrada
     pred = model.predict([[184, 170, 151]])
     print(pred)
+
+
+def find_best_parameters():
+    # Função para encontrrar os melhores parametros para a rede neural
+    X_train, X_test, Y_train, Y_test = train_test_split()
+    param_grid = [
+        {
+            'activation': ['identity', 'logistic', 'tanh', 'relu'],
+            'solver': ['lbfgs', 'sgd', 'adam'],
+            'hidden_layer_sizes': [
+                (1,), (2,), (3,), (4,), (5,), (6,), (7,), (8,), (9,), (10,), (11,
+                                                                              ), (12,), (13,), (14,), (15,), (16,), (17,), (18,), (19,), (20,), (21,)
+            ]
+        }
+    ]
+    clf = GridSearchCV(MLPClassifier(), param_grid, cv=3, scoring='accuracy')
+    clf.fit(X_train, Y_train)
+
+    print("Best parameters set found on development set:")
+    print(clf.best_params_)
 
 
 def main():
