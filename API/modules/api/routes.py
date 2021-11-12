@@ -12,17 +12,40 @@ UPLOAD_URL = 'http://192.168.1.29:33/images/'
 
 
 @mod.route('/', methods=['GET'])
-def home():    
+def home():
     return render_template('index.html')
+
 
 @mod.route('/random', methods=['GET'])
 def randomColor():
-            return jsonify({
-                "color" : "color",
-                "prediction" : "{}".format(random.randint(0,100)),
-                "confidence" : "{}".format(random.randint(0,100)),
-                "rgb" : [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
-            }), 200
+    return jsonify({
+        "color": "color",
+        "prediction": "{}".format(random.randint(0, 100)),
+        "confidence": "{}".format(random.randint(0, 100)),
+        "rgb": [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
+    }), 200
+
+
+@mod.route('/analisys', methods=['POST'])
+def analisys():
+    if request.method == 'POST':
+
+        r = int(request.json['r'])
+        g = int(request.json['g'])
+        b = int(request.json['b'])
+
+        h = request.json['h']
+        s = request.json['s']
+        v = request.json['v']
+        
+        print(h,s,v)
+
+        return jsonify({
+            "color": "color",
+            "prediction": "55",
+            "confidence": "96",
+            "rgb": [r, b, g]
+        }), 200
 
 
 @mod.route('/send', methods=['POST'])
@@ -43,15 +66,9 @@ def send():
                 os.getcwd()+'\\modules\\images\\'+image.filename)
             image.save(path)
             
-            # Para salvar imagem no banco de dados
-            # db.addNewImage(
-            #     image.filename,
-            #     datetime.now(),
-            #     UPLOAD_URL+image.filename)
-
             return jsonify({
-                "color" : "color",
-                "prediction" : "55",
-                "confidence" : "96",
-                "rgb" : [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
+                "color": "color",
+                "prediction": "55",
+                "confidence": "96",
+                "rgb": [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
             }), 200
