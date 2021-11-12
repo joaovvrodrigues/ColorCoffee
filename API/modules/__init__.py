@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 #TODO: Change to False
-app.config["DEBUG"] = True
+app.config["DEBUG"] = False
 
 from modules.api.routes import mod
 

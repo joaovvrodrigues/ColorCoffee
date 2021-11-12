@@ -1,6 +1,6 @@
 import sklearn
 import pandas as pd
-import numpy as np
+# import numpy as np
 import joblib
 
 from sklearn import metrics
@@ -41,7 +41,7 @@ def classification(X_train, X_test, Y_train, Y_test):
     #     16,), solver='lbfgs', random_state=120)  # 60% de acerto
 
     # Floresta Aleatória
-    model = RandomForestClassifier(n_estimators = 100, max_features=None)
+    model = RandomForestClassifier(n_estimators=100, max_features=None)
 
     model.fit(X_train, Y_train)
     print(model.score(X_test, Y_test))
@@ -90,6 +90,8 @@ def find_best_parameters():
 
 
 def main():
+    print('\n===========================\n')
+    
     X_train, X_test, Y_train, Y_test = train_test_split()
     model = classification(X_train, X_test, Y_train, Y_test)
 
@@ -102,17 +104,29 @@ def main():
     ac = metrics.accuracy_score(predicted, Y_test)
 
     # I obtain the confusion matrix
-    mcm = metrics.multilabel_confusion_matrix(Y_test, predicted, labels=['Agtron 25', 'Agtron 35', 'Agtron 45', 'Agtron 55', 'Agtron 65', 'Agtron 75', 'Agtron 85', 'Agtron 95'])
+    mcm = metrics.multilabel_confusion_matrix(Y_test, predicted, labels=[
+                                              'Agtron 25', 'Agtron 35', 'Agtron 45', 'Agtron 55', 'Agtron 65', 'Agtron 75', 'Agtron 85', 'Agtron 95'])
     
     tn = mcm[:, 0, 0]
     tp = mcm[:, 1, 1]
     fn = mcm[:, 1, 0]
     fp = mcm[:, 0, 1]
 
+    print('\n===========================\n')
+
+    print('some labels in y_test dont appear in predicted')
+    a = set(Y_test) - set(predicted)
+    print(a)
+
+    print('\n===========================\n')
+
     print(fp, fn, tp, tn)
 
+    print('\n===========================\n')
+
     print(metrics.classification_report(Y_test, predicted))
-    print(ac)
+
+    print('\n===========================\n')
 
     # export_model(model)
 
