@@ -21,7 +21,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
   @override
   void initState() {
     if (widget.image != null) {
-      controller.uploadImageToServer(widget.image!);
+      controller.uploadColorToServer(widget.image!);
     }
     super.initState();
   }
@@ -32,6 +32,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
         valueListenable: controller.roast,
         builder: (BuildContext context, Roast? value, __) {
           return Scaffold(
+            appBar: AppBar(
+              backgroundColor: value != null ? value.color : Colors.brown,
+            ),
             extendBodyBehindAppBar: true,
             resizeToAvoidBottomInset: true,
             extendBody: true,
@@ -73,7 +76,6 @@ class _AnalysisPageState extends State<AnalysisPage> {
               backgroundColor: value != null ? value.color : Colors.brown,
               onPressed: () async {
                 await controller.getRandomColor();
-                // changeTheme();
               },
               tooltip: 'Random Color',
               child: const Icon(Icons.repeat_on_rounded),

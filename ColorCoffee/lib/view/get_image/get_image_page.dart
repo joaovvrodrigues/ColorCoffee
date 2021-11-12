@@ -91,8 +91,10 @@ class _GetImagePageState extends State<GetImagePage> {
       croppedFile = await ImageCropper.cropImage(
           sourcePath: path,
           cropStyle: CropStyle.rectangle,
-          maxHeight: 180,
-          maxWidth: 180,
+          maxHeight: 128,
+          maxWidth: 128,
+          compressFormat: ImageCompressFormat.png,
+          compressQuality: 100,
           aspectRatioPresets: [
             CropAspectRatioPreset.square,
           ],
