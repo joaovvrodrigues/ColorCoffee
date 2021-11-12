@@ -125,11 +125,19 @@ def create_CSV(header, data, name):
 
 
 def main():
-    header, data = create_data()
-    create_CSV(header, data, 'coffe_mean_rgb')
+    # header, data = create_data()
+    # create_CSV(header, data, 'coffe_mean_rgb')
 
-    header, data = create_data(True)
-    create_CSV(header, data, 'coffe_mean_hsv')
+    # header, data = create_data(True)
+    # create_CSV(header, data, 'coffe_mean_hsv')
+
+    img = read_img('./photos/1636732274361.png')
+
+    H, S, V = split_channel(convert_HSV(img))
+    B, G, R = split_channel(img)
+
+    print(R,G,B)
+    print(H,S,V)
 
 
 main()
