@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import '../../model/roast.dart';
 
 class ColorControll {
-  static const uploadUrl = 'http://192.168.1.29:33/api/';
+  static const uploadUrl = 'https://real-color-coffee.herokuapp.com/';
 
   final ValueNotifier<Roast?> roast = ValueNotifier<Roast?>(null);
 
