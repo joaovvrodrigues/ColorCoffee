@@ -1,7 +1,25 @@
 from flask import Flask, request, jsonify
 import os
-# from datetime import datetime
 import random
+import sklearn
+import joblib
+from os.path import join, dirname, realpath
+
+
+FILE = 'coffe_mean_rgb'
+EXPORT_NAME = join(dirname(realpath(__file__)),
+                   'static/classifier_{}.sav'.format(FILE))
+
+
+def import_test_model():
+    loaded_model = joblib.load(EXPORT_NAME)
+    return loaded_model
+
+
+def classifier_new_data(model, rgb):
+    pred = model.predict([rgb])
+    return pred
+
 
 app = Flask(__name__)
 
@@ -15,7 +33,7 @@ def hello_world():
 def randomColor():
     return jsonify({
         "color": "color",
-        "prediction": "{}".format(random.randint(0, 100)),
+        "prediction": "Agtron {}".format(random.randint(0, 100)),
         "confidence": "{}".format(random.randint(0, 100)),
         "rgb": [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
     }), 200
@@ -33,17 +51,17 @@ def analisys():
         s = request.json['s']
         v = request.json['v']
 
-        print(h, s, v)
+        model = import_test_model()
+        prediction = classifier_new_data(model, [r, g, b])
 
         return jsonify({
             "color": "color",
-            "prediction": "55",
+            "prediction": prediction[0],
             "confidence": "96",
             "rgb": [r, b, g]
         }), 200
 
 
 if __name__ == "__main__":
-    # port = int(os.environ.get("PORT", 5000))
-    # app.run(threaded=True, host='0.0.0.0', port=port)
-    app.run(threaded=True, port=5000)
+    # app.run(debug=True, host='0.0.0.0', port=33) # Dev
+    app.run(threaded=True, port=5000) # Produção

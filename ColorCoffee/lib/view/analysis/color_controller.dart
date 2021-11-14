@@ -9,7 +9,9 @@ import 'package:http/http.dart' as http;
 import '../../model/roast.dart';
 
 class ColorControll {
+  static const debugUploadUrl = 'http://192.168.1.29:33/';
   static const uploadUrl = 'https://real-color-coffee.herokuapp.com/';
+  static const debug = false;
 
   final ValueNotifier<Roast?> roast = ValueNotifier<Roast?>(null);
 
@@ -17,7 +19,7 @@ class ColorControll {
     http.Response? response;
     try {
       response = await http.get(
-        Uri.parse(uploadUrl + 'random'),
+        Uri.parse(debug ? debugUploadUrl + 'random' : uploadUrl + 'random'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -76,7 +78,7 @@ class ColorControll {
 
     try {
       response = await http.post(
-        Uri.parse(uploadUrl + 'analisys'),
+        Uri.parse(debug ? debugUploadUrl + 'analisys' : uploadUrl + 'analisys'),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
@@ -93,14 +95,13 @@ class ColorControll {
       await EasyLoading.showError('Erro inesperado! \n ${e.toString()}',
           duration: const Duration(seconds: 2));
     } finally {
-      await Future.delayed(const Duration(seconds: 1))
-          .then((value) => EasyLoading.dismiss());
+      await EasyLoading.dismiss();
 
       if (response != null) {
         switch (response.statusCode) {
           case 200:
             EasyLoading.showSuccess('Enviado!',
-                duration: const Duration(seconds: 2));
+                duration: const Duration(seconds: 1));
 
             roast.value = Roast.fromJson(response.body);
             break;
@@ -118,7 +119,8 @@ class ColorControll {
 
     http.StreamedResponse? streamedResponse;
 
-    Uri postUri = Uri.parse(uploadUrl + 'send');
+    Uri postUri =
+        Uri.parse(debug ? debugUploadUrl + 'send' : uploadUrl + 'send');
     http.MultipartRequest request = http.MultipartRequest('POST', postUri);
     request.files.add(http.MultipartFile(
         'file', image.readAsBytes().asStream(), await image.length(),
