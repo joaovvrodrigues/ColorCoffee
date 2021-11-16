@@ -1,5 +1,11 @@
+import 'dart:async';
 import 'dart:io';
+import 'dart:isolate';
+import 'dart:math';
 
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import '../../openCV/native_opencv.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -67,7 +73,8 @@ class _GetImagePageState extends State<GetImagePage> {
                 )));
 
     if (imagePath != null) {
-      await cropImage(imagePath!);
+      Random _rnd = Random();
+      await cropImage(imagePath!, _rnd.nextInt(10).toString());
     }
   }
 
@@ -75,11 +82,11 @@ class _GetImagePageState extends State<GetImagePage> {
     XFile? image = await _picker.pickImage(source: ImageSource.gallery);
 
     if (image != null) {
-      await cropImage(image.path);
+      await cropImage(image.path, image.name);
     }
   }
 
-  Future<void> cropImage(String path) async {
+  Future<void> cropImage(String path, String name) async {
     bool? according = await showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -119,8 +126,37 @@ class _GetImagePageState extends State<GetImagePage> {
           ));
 
       if (croppedFile != null) {
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => AnalysisPage(image: croppedFile)));
+        Directory tempDir = await getTemporaryDirectory();
+
+        EasyLoading.show(status: 'Processando...');
+
+        final port = ReceivePort();
+        final args = ProcessImageArguments(
+            croppedFile.path, '${tempDir.path}/$name.jpg');
+
+        // Spawning an isolate
+        Isolate.spawn<ProcessImageArguments>(
+          processImage,
+          args,
+          onError: port.sendPort,
+          onExit: port.sendPort,
+        );
+
+        // Making a variable to store a subscription in
+        late StreamSubscription sub;
+
+        // Listening for messages on port
+        sub = port.listen((_) async {
+          // Cancel a subscription after message received called
+          await sub.cancel();
+
+          await EasyLoading.dismiss();
+
+          File processedImage = File('${tempDir.path}/$name.jpg');
+
+          Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => AnalysisPage(image: processedImage)));
+        });
       }
     }
     setState(() {});
