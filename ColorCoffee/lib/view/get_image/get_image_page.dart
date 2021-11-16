@@ -129,12 +129,13 @@ class _GetImagePageState extends State<GetImagePage> {
         Directory tempDir = await getTemporaryDirectory();
 
         EasyLoading.show(status: 'Processando...');
-
+        // Sem o Isolate o app trava enquanto o processamento não for finalizado,
+        // Criação de uma porta para comunicação com isolamento e argumentos para ponto de entrada
         final port = ReceivePort();
         final args = ProcessImageArguments(
             croppedFile.path, '${tempDir.path}/$name.jpg');
 
-        // Spawning an isolate
+        // Chamando o Isolate
         Isolate.spawn<ProcessImageArguments>(
           processImage,
           args,
@@ -142,12 +143,12 @@ class _GetImagePageState extends State<GetImagePage> {
           onExit: port.sendPort,
         );
 
-        // Making a variable to store a subscription in
+        // Criando uma variável para armazenar uma assinatura da minha Stream
         late StreamSubscription sub;
 
-        // Listening for messages on port
+        // Ouvindo mensagens na porta
         sub = port.listen((_) async {
-          // Cancel a subscription after message received called
+          // Cancelar uma assinatura após o recebimento da mensagem (Processamento finalizado)
           await sub.cancel();
 
           await EasyLoading.dismiss();

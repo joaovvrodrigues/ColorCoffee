@@ -82,6 +82,7 @@ extern "C" {
         platform_log("Processamento finalizado em %dms\n", evalInMillis);
     }
 
+    // Teste de função: medianBlur
     FUNCTION_ATTRIBUTE
     void process_median_blur(char* inputImagePath, char* outputImagePath) {
         long long start = get_now();
@@ -97,6 +98,7 @@ extern "C" {
         platform_log("MEDIAN BLUR (5) - Processamento finalizado em %dms\n", evalInMillis);
     }
 
+    // Teste de função: Equalização de Histograma CLAHE com escala de cinza
     FUNCTION_ATTRIBUTE
     void process_gray_clahe(char* inputImagePath, char* outputImagePath) {
         long long start = get_now();
@@ -118,6 +120,7 @@ extern "C" {
         platform_log("CLAHE - Processamento finalizado em %dms\n", evalInMillis);
     }
 
+    // Teste de função: Equalização de Histograma CLAHE com RGB
     FUNCTION_ATTRIBUTE
     void process_color_clahe(char* inputImagePath, char* outputImagePath) {
         long long start = get_now();
@@ -151,6 +154,7 @@ extern "C" {
         platform_log("Processamento finalizado em %dms\n", evalInMillis);
     }
 
+    // Teste de função: threshold
     FUNCTION_ATTRIBUTE
     void process_image_threshold(char* inputImagePath, char* outputImagePath) {
         long long start = get_now();
