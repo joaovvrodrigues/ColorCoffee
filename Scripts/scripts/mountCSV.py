@@ -133,8 +133,8 @@ def main():
 
     img = read_img('./photos/1636732274361.png')
 
-    H, S, V = split_channel(convert_HSV(img))
-    B, G, R = split_channel(img)
+    H, S, V = cv2.split(convert_HSV(img))
+    B, G, R = cv2.split(img)
 
     print(R,G,B)
     print(H,S,V)

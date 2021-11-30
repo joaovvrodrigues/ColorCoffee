@@ -13,7 +13,7 @@ from sklearn.model_selection import GridSearchCV
 
 
 HSV = False
-FILE = 'coffe_mean_rgb'
+FILE = 'coffe_hsv'
 EXPORT_NAME = './classifiers/classifier_{}.sav'.format(FILE)
 
 
@@ -21,6 +21,7 @@ def train_test_split():
     # Pegando a base e dividindo em treino e teste
     dataframe = pd.read_csv('./data/{}.csv'.format(FILE))
     array = dataframe.values
+    array = array.sample(1)
 
     X = array[:, 0:3]
     Y = array[:, 3]
@@ -91,7 +92,7 @@ def find_best_parameters():
 
 def main():
     print('\n===========================\n')
-    
+
     X_train, X_test, Y_train, Y_test = train_test_split()
     model = classification(X_train, X_test, Y_train, Y_test)
 
@@ -105,8 +106,8 @@ def main():
 
     # I obtain the confusion matrix
     mcm = metrics.multilabel_confusion_matrix(Y_test, predicted, labels=[
-                                              'Agtron 25', 'Agtron 35', 'Agtron 45', 'Agtron 55', 'Agtron 65', 'Agtron 75', 'Agtron 85', 'Agtron 95'])
-    
+                                              '25', '35', '45', '55', '65', '75', '85', '95'])
+
     tn = mcm[:, 0, 0]
     tp = mcm[:, 1, 1]
     fn = mcm[:, 1, 0]
