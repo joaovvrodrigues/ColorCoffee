@@ -49,6 +49,8 @@ class _AnalysisPageState extends State<AnalysisPage> {
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
+                            SizedBox(child: Image.file(widget.image!)),
+                            const SizedBox(height: 12),
                             const Text(
                               'Amostra',
                             ),
@@ -75,7 +77,11 @@ class _AnalysisPageState extends State<AnalysisPage> {
             floatingActionButton: FloatingActionButton(
               backgroundColor: value != null ? value.color : Colors.brown,
               onPressed: () async {
-                await controller.getRandomColor();
+                // await controller.getRandomColor();
+
+                setState(() {
+                  controller.teste(widget.image!);
+                });
               },
               tooltip: 'Random Color',
               child: const Icon(Icons.repeat_on_rounded),

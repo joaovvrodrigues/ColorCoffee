@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image/image.dart' as img;
 import 'package:color/color.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
 import '../../model/roast.dart';
+import 'package:collection/collection.dart';
 
 class ColorControll {
   static const debugUploadUrl = 'http://192.168.1.29:33/';
@@ -34,6 +36,48 @@ class ColorControll {
     }
   }
 
+  Future<void> teste(File image) async {
+    List<num> redBucket = [];
+    List<num> greenBucket = [];
+    List<num> blueBucket = [];
+
+    List<num> hBucket = [];
+    List<num> sBucket = [];
+    List<num> vBucket = [];
+
+    img.Image? bitmap = img.decodeImage(image.readAsBytesSync());
+    if (bitmap != null) {
+      for (int y = 0; y < bitmap.height; y++) {
+        for (int x = 0; x < bitmap.width; x++) {
+          int c = bitmap.getPixel(x, y);
+          int redAux = img.getRed(c);
+          int greenAux = img.getGreen(c);
+          int blueAux = img.getBlue(c);
+
+          redBucket.add(redAux);
+          greenBucket.add(greenAux);
+          blueBucket.add(blueAux);
+
+          HsvColor hsv = RgbColor(redAux, greenAux, blueAux).toHsvColor();
+          hBucket.add(hsv.h);
+          sBucket.add(hsv.s);
+          vBucket.add(hsv.v);
+        }
+      }
+
+      print('getWhiteBalance: ${bitmap.getWhiteBalance()}');
+    }
+
+    RgbColor rgb = RgbColor(redBucket.average.round(),
+        greenBucket.average.round(), blueBucket.average.round());
+    HsvColor hsv = HsvColor(hBucket.average.round(), sBucket.average.round(),
+        vBucket.average.round());
+
+    print(rgb.toHsvColor());
+    print('rgb: $rgb');
+    print('hsv: $hsv');
+  }
+
   Future<RgbColor> getAvarageRGBColor(File image) async {
     // Flutter
     // r: 92, g: 133, b: 184
@@ -48,21 +92,46 @@ class ColorControll {
     int blueBucket = 0;
     int pixelCount = 0;
 
+    num hBucket = 0;
+    num sBucket = 0;
+    num vBucket = 0;
+
     img.Image? bitmap = img.decodeImage(image.readAsBytesSync());
     if (bitmap != null) {
       for (int y = 0; y < bitmap.height; y++) {
         for (int x = 0; x < bitmap.width; x++) {
           int c = bitmap.getPixel(x, y);
+          int redAux = img.getRed(c);
+          int greenAux = img.getGreen(c);
+          int blueAux = img.getBlue(c);
+
+          HsvColor hsv = RgbColor(redAux, greenAux, blueAux).toHsvColor();
+          hBucket = hsv.h;
+          sBucket = hsv.s;
+          vBucket = hsv.v;
 
           pixelCount++;
-          redBucket += img.getRed(c);
-          greenBucket += img.getGreen(c);
-          blueBucket += img.getBlue(c);
+
+          redBucket += redAux;
+          greenBucket += greenAux;
+          blueBucket += blueAux;
         }
       }
+
+      print('getWhiteBalance: ${bitmap.getWhiteBalance()}');
     }
+
     RgbColor rgb = RgbColor(redBucket ~/ pixelCount, greenBucket ~/ pixelCount,
         blueBucket ~/ pixelCount);
+    HsvColor hsv1 = HsvColor(
+        hBucket ~/ pixelCount, sBucket ~/ pixelCount, vBucket ~/ pixelCount);
+    HsvColor hsv2 = HsvColor(
+        hBucket / pixelCount, sBucket / pixelCount, vBucket / pixelCount);
+
+    print('rgb: $rgb');
+    print('rgb to HSV: ${rgb.toHsvColor()}');
+    print('hsv int: $hsv1');
+    print('hsv normal: $hsv2');
 
     return rgb;
   }

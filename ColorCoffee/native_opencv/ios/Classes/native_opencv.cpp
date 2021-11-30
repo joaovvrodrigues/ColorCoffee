@@ -54,8 +54,53 @@ extern "C" {
         return CV_VERSION;
     }
 
+    // FUNCTION_ATTRIBUTE
+    // const vector<Mat>* getHSV(char* inputImagePath, char* outputImagePath) {
+    //     Mat src  = imread(inputImagePath);
+
+    //     // Mudando espaço de cor para HSV
+    //     platform_log("Aplicando Equalização de Histograma");
+    //     Mat hsv_image;
+    //     cvtColor(src, hsv_image, COLOR_BGR2HSV);
+        
+    //     // Separando os canais H, S e V
+    //     vector<Mat> vec_channels;
+    //     split(hsv_image, vec_channels);
+
+    //     return vec_channels;
+    // }
+
     FUNCTION_ATTRIBUTE
     void process_image(char* inputImagePath, char* outputImagePath) {
+        long long start = get_now();
+        // Lendo imagem
+        Mat src  = imread(inputImagePath);
+
+        // Mudando espaço de cor para HSV
+        platform_log("Aplicando Equalização de Histograma");
+        Mat hsv_image;
+        cvtColor(src, hsv_image, COLOR_BGR2HSV);
+        
+        // Separando os canais H, S e V
+        vector<Mat> vec_channels;
+        split(hsv_image, vec_channels);
+
+        // Equalizando somente o canal V (Da intensidade o brilho)
+        equalizeHist(vec_channels[2], vec_channels[2]);
+
+        // Unindo os canais e voltando o canal RGB
+        Mat dst;
+        merge(vec_channels, dst); 
+        cvtColor(dst, dst, COLOR_HSV2BGR);
+
+        imwrite(outputImagePath, dst);
+        
+        int evalInMillis = static_cast<int>(get_now() - start);
+        platform_log("Processamento finalizado em %dms\n", evalInMillis);
+    }
+
+    FUNCTION_ATTRIBUTE
+    void process_image_with_clahe(char* inputImagePath, char* outputImagePath) {
         long long start = get_now();
         platform_log("Aplicando Median Blur");
         
