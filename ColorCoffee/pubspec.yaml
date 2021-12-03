@@ -47,6 +47,7 @@ dependencies:
   color: ^3.0.0
   opencv_4: ^1.0.0
   ffi: ^1.1.2
+  flutter_isolate: ^2.0.0
   native_opencv:
     path: native_opencv
 

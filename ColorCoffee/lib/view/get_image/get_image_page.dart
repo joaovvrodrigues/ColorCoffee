@@ -55,22 +55,28 @@ class _GetImagePageState extends State<GetImagePage> {
                 icon: Icons.ac_unit,
                 text: 'Test',
                 onPressed: () async {
-                  EasyLoading.show(status: 'Processando...');
-                  _byte = await Cv2.pyrMeanShiftFiltering(
-                    pathFrom: CVPathFrom.GALLERY_CAMERA,
-                    pathString: croppedFile!.path,
-                    spatialWindowRadius: 70,
-                    colorWindowRadius: 29,
-                  );
+                  EasyLoading.show(
+                      status: 'Processando...', dismissOnTap: true);
+
+                  await Future.delayed(Duration(seconds: 2));
+
+                  await Future.microtask(() async {
+                    _byte = await Cv2.pyrMeanShiftFiltering(
+                      pathFrom: CVPathFrom.GALLERY_CAMERA,
+                      pathString: croppedFile!.path,
+                      spatialWindowRadius: 70,
+                      colorWindowRadius: 29,
+                    );
+                  });
                   EasyLoading.dismiss();
                   // _byte = await Cv2.medianBlur(
                   //   pathFrom: CVPathFrom.GALLERY_CAMERA,
                   //   pathString: croppedFile!.path,
                   //   kernelSize: 29,
                   // );
-                  // setState(() {
-                  //   _byte;
-                  // });
+                  setState(() {
+                    _byte;
+                  });
                 }),
             CustomButton(
                 icon: Icons.nat,

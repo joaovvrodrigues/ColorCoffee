@@ -18,21 +18,52 @@ from sklearn.model_selection import GridSearchCV
 
 
 HSV = False
-FILE = 'coffe_hsv'
+FILE = 'coffee_data'
 EXPORT_NAME = './classifiers/classifier_{}.sav'.format(FILE)
 
 
-def train_test_split():
+def fix_dataset():
     # Pegando a base e dividindo em treino e teste
     dataframe = pd.read_csv('./data/{}.csv'.format(FILE))
+
+    # Remove Agtron #95
+    dataframe = dataframe[dataframe.Agtron_value != 95]
+
+    # Remove Agtron #85
+    dataframe = dataframe[dataframe.Agtron_value != 85]
+    
+    # Remove Agtron #25
+    dataframe = dataframe[dataframe.Agtron_value != 25]
+
+    # Remove colunas não utilizadas
+    dataframe = dataframe.drop(
+        dataframe.columns[[0, 1, 2, 3, 4,  5, 19, 20]], axis=1)
+
+    # Remove RGB
+    # dataframe = dataframe.drop(dataframe.columns[[0, 1, 2, 3, 4, 5]], axis=1)
+
+    # Remove HSV
+    # dataframe = dataframe.drop(dataframe.columns[[6, 7, 8, 9, 10, 11]], axis=1)
+
+    # Café em RGB, papel em HSV
+    dataframe = dataframe.drop(dataframe.columns[[6, 7, 8, 3, 4, 5]], axis=1)
+
+    print(dataframe.head())
+    return dataframe
+
+
+def train_test_split():
+
+    dataframe = fix_dataset()
+
     array = dataframe.values
 
-    data = array[:, 0:5]
-    labels = array[:, 5]
+    data = array[:, 0:(len(dataframe.columns)-1)]
+    labels = array[:, (len(dataframe.columns)-1)]
     test_size = 0.33
 
     # print(data)
-    # print(labels)
+    print(labels)
 
     seed = 7
     train, test, train_labels, test_labels = model_selection.train_test_split(
@@ -45,7 +76,8 @@ def classification():
 
     # Perceptron Multicamadas
     # {'activation': 'relu', 'hidden_layer_sizes': (13,), 'solver': 'lbfgs'}
-    # model = MLPClassifier(max_iter=2000, activation='identity', hidden_layer_sizes=(1,), solver='lbfgs', random_state=120)
+    model = MLPClassifier(max_iter=2000, activation='identity', hidden_layer_sizes=(
+        1,), solver='lbfgs', random_state=120)
 
     # Floresta Aleatória
     # model = RandomForestClassifier(n_estimators=100, max_features=None)
@@ -54,7 +86,7 @@ def classification():
     # print("Score de modelo: {}".format(model.score(test, test_labels)))
 
     # Arvore de Descisão
-    # model = DecisionTreeClassifier(random_state=12)
+    # model = DecisionTreeClassifier(random_state=2)
 
     # LinearSVC 37%
     # model = LinearSVC(C=1.0, class_weight=None, dual=True, fit_intercept=True,
@@ -65,8 +97,7 @@ def classification():
     # LogisticRegression 42%
     # model = LogisticRegression()
 
-    model = svm.SVC()
-
+    # model = svm.SVC()
 
     return model
 

@@ -24,24 +24,25 @@ def getMeanHSV(image_path):
 
 def createData():
     id_count = 0
-    devices = ['iPhone 8', 'Motorola X4', 'Redmi 5A', 'Xiaomi Mi9']
+    devices = ['iPhone 8', 'Motorola X4', 'Redmi 5A', 'Xiaomi Mi9', 'Lumix']
     lighting_conditions = ['Luz', 'Flash', 'Externo', 'Sombra']
     types = ['Folha', 'Cafe']
 
     header = ['ID', 'Device', 'Height', 'Width', 'Num_sample', 'Lighting_condition', 'R_mean', 'G_mean', 'B_mean', 'Paper_R_mean',
-              'Paper_G_mean', 'Paper_B_mean', 'H_mean', 'S_mean', 'V_mean', 'Paper_H_mean', 'Paper_S_mean', 'Paper_V_mean', 'Agtron_value']
+              'Paper_G_mean', 'Paper_B_mean', 'H_mean', 'S_mean', 'V_mean', 'Paper_H_mean', 'Paper_S_mean', 'Paper_V_mean', 'Agtron_value', 'File', 'Path']
 
     data = []
 
     for device in devices:
+        print("### {} ###".format(device))
         for condition in lighting_conditions:
-
+            print("=== {} ===".format(condition))
             data_papers = []
-
             for option in types:
-                for file in os.listdir("./photos/{}/{}/{}".format(device, condition, option)):
+                print("--- {} ---".format(option))
+                for file in os.listdir(".\photos\{}\{}\{}".format(device, condition, option)):
                     img_path = os.path.join(
-                        "./photos/{}/{}/{}".format(device, condition, option), file)
+                        ".\photos\{}\{}\{}".format(device, condition, option), file)
                     img = cv2.imread(img_path)
 
                     if option == 'Folha':
@@ -49,7 +50,12 @@ def createData():
                         H, S, V = getMeanHSV(img_path)
                         data_papers.append([R, G, B, H, S, V])
                     else:
-                        paper = data_papers[int(file[3]) - 1]
+                        print(file)
+                        # PORQUE NÃO TEM EXPERIMENTO 1
+                        if(device == "Lumix"):
+                            paper = data_papers[int(file[3]) - 2]
+                        else:
+                            paper = data_papers[int(file[3]) - 1]
 
                         height, width, channels = img.shape
 
@@ -57,7 +63,7 @@ def createData():
                         H, S, V = getMeanHSV(img_path)
 
                         data.append([id_count, device, height,
-                                    width, file[3], condition, R, G, B, paper[0], paper[1], paper[2], H, S, V, paper[3], paper[4], paper[5], file[0:2]])
+                                    width, file[3], condition, R, G, B, paper[0], paper[1], paper[2], H, S, V, paper[3], paper[4], paper[5], file[0:2], file, img_path])
 
                         id_count = id_count + 1
 
@@ -72,6 +78,7 @@ def writeCSV(header, data, name):
         # Escreve todas as linhas (data)
         writer.writerows(data)
 
+
 def testeMeanShiftFiltering():
     image_path = "photos\\iPhone 8\\Flash\\Cafe\\25_1.png"
     img = cv2.imread(image_path)
@@ -85,7 +92,8 @@ def testeMeanShiftFiltering():
     cv2.imshow('bbb', dst)
     cv2.waitKey()
 
+
 print('========== EXTRACTING DATA ==========')
 header, data = createData()
-writeCSV(header, data, 'coffe_data')
+writeCSV(header, data, 'coffee_data')
 print('================ DONE ================')
