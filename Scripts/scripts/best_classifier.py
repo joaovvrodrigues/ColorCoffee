@@ -26,9 +26,6 @@ from numpy import array
 from sklearn.model_selection import cross_val_score
 from sklearn.preprocessing import LabelBinarizer
 
-from sklearn.preprocessing import MultiLabelBinarizer
-from sklearn import preprocessing
-
 random_state = 42
 FILE = 'coffee_data'
 EXPORT_NAME = './classifiers/classifier_{}.sav'.format(FILE)
@@ -50,20 +47,18 @@ def ApplyesKFold(x_axis, y_axis, hsv, binary):
         n_estimators=100, max_features="auto", random_state=random_state, class_weight="balanced_subsample")
 
     # Perceptron Multicamadas
-    mplc = MLPClassifier(max_iter=15000, activation='identity', hidden_layer_sizes=(
-        1,), solver='lbfgs', random_state=random_state)
+    mplc = MLPClassifier(max_iter=15000, activation='identity', hidden_layer_sizes=(1,), solver='lbfgs', random_state=random_state)
 
     # GradientBoostingClassifier
     # gradient = GradientBoostingClassifier(
     #     n_estimators=100, learning_rate=0.1, random_state=random_state, max_features="auto",)
-    knn = KNeighborsClassifier(n_neighbors=10)
+    knn  = KNeighborsClassifier(n_neighbors = 10)  
 
     if binary:
         # BINARIZANDO LABELS
-        lb = MultiLabelBinarizer()
+        lb = LabelBinarizer()
         y = lb.fit_transform(y)
         y = array(y)
-
 
     # Applyes KFold to models.
     randomForest_result = cross_val_score(
@@ -73,10 +68,10 @@ def ApplyesKFold(x_axis, y_axis, hsv, binary):
     knn_result = cross_val_score(
         knn, x, y, cv=kfold, scoring='precision_micro')
 
-    # print_confusion_matrix('randomForest', randomForest,
-    #                        x, y, kfold, hsv, binary)
-    # print_confusion_matrix('mplc', mplc, x, y, kfold, hsv, binary)
-    # print_confusion_matrix('knn', knn, x, y, kfold, hsv, binary)
+    if not binary:
+        print_confusion_matrix('randomForest', randomForest, x, y, kfold, hsv)
+        print_confusion_matrix('mplc', mplc, x, y, kfold, hsv)
+        print_confusion_matrix('knn', knn, x, y, kfold, hsv)
 
     # Creates a dictionary to store Linear Models.
     dic_models = {
@@ -96,83 +91,43 @@ def ApplyesKFold(x_axis, y_axis, hsv, binary):
     #     bestModel,  np.round(dic_models[bestModel], 2)))
 
     return dic_models
-    
-def print_confusion_matrix(nome, clf, x, y, kfold, hsv, binary):
+
+
+def print_confusion_matrix(nome, clf, x, y, kfold, hsv):
     y_pred = cross_val_predict(clf, x, y, cv=kfold)
-    # print('=======================')
-    # print(len(y))
-    # print(len(y_pred))
 
-    # if binary:
-    #     print('-------------------------')
-    #     print('Removendo binarios')
-    #     y_pred = removerBinario(y_pred)
-    #     y = removerBinario(y)
-    #     print(len(y))
-    #     print(len(y_pred))
+    conf_mat = confusion_matrix(y, y_pred)
 
-        
-        
+    mcm = metrics.multilabel_confusion_matrix(y, y_pred, labels=[
+                                              'Agtron 25', 'Agtron 35', 'Agtron 45', 'Agtron 55', 'Agtron 65', 'Agtron 75'])
 
-    # if binary:
-    #     # REMOVENDO BINARIZANDO LABELS
-    #     lb = LabelBinarizer()
-    #     y_pred = lb.inverse_transform(y_pred)
-    #     y_pred = array(y_pred)
+    TN = mcm[:, 0, 0]
+    TP = mcm[:, 1, 1]
+    FN = mcm[:, 1, 0]
+    FP = mcm[:, 0, 1]
 
-    lables = [25, 35, 45, 55, 65, 75]
-    if binary:
-        cm = confusion_matrix(y, y_pred)
-    else:
-        cm = confusion_matrix(y, y_pred)
-    # mcm = metrics.multilabel_confusion_matrix(y, y_pred, labels=[
-    #                                           'Agtron 25', 'Agtron 35', 'Agtron 45', 'Agtron 55', 'Agtron 65', 'Agtron 75'])
+    print('True positive = ', TP)
+    print('False positive = ', len(FP))
+    print('False negative = ', len(FN))
+    print('True negative = ', TN)
 
-    # TN = mcm[:, 0, 0]
-    # TP = mcm[:, 1, 1]
-    # FN = mcm[:, 1, 0]
-    # FP = mcm[:, 0, 1]
-
-    # print('True positive = ', TP)
-    # print('False positive = ', len(FP))
-    # print('False negative = ', len(FN))
-    # print('True negative = ', TN)
-
-    # print('\nAccuracy: {}'.format(
-    #     (sum(TP)+sum(TN))/(sum(TP)+sum(TN)+sum(FP)+sum(FN))))
-    # print('Precision: {}'.format(sum(TP)/(sum(TP)+sum(FP))))
-    # print('Recall: {}'.format(sum(TP)/(sum(TP)+sum(FN))))
+    print('\nAccuracy: {}'.format(
+        (sum(TP)+sum(TN))/(sum(TP)+sum(TN)+sum(FP)+sum(FN))))
+    print('Precision: {}'.format(sum(TP)/(sum(TP)+sum(FP))))
+    print('Recall: {}'.format(sum(TP)/(sum(TP)+sum(FN))))
     # print(metrics.classification_report(y, y_pred))
 
-    plt.figure(figsize=(10, 7))
-    ax = plt.subplot()
+    df_cm = pd.DataFrame(conf_mat, index = [25, 35, 45, 55, 65, 75],
+                  columns = [25, 35, 45, 55, 65, 75])
+    plt.figure(figsize = (10,7))
 
-    df_cm = pd.DataFrame(cm, index=[25, 35, 45, 55, 65, 75], columns=[
-                         25, 35, 45, 55, 65, 75])
-
-    sn.set(font_scale=1.4)
-    sn.heatmap(df_cm, annot=True, ax=ax, annot_kws={"size": 16}, cmap='Greens')
-
-    # sn.heatmap(df_cm, annot=True, annot_kws={"size": 16}, cmap='Greens')
-
-    ax.set_xlabel('Predicted labels')
-    ax.set_ylabel('True labels')
-    ax.xaxis.set_ticklabels(lables)
-    ax.yaxis.set_ticklabels(lables)
+    sn.set(font_scale=1.4) # for label size
+    sn.heatmap(df_cm, annot=True, annot_kws={"size": 16}, cmap='Greens')
 
     if hsv:
-        if binary:
-            plt.savefig("{}_matrix_HSV_Binary.pdf".format(
-                nome), bbox_inches='tight')
-        else:
-            plt.savefig("{}_matrix_HSV.pdf".format(nome), bbox_inches='tight')
+        plt.savefig("{}_matrix_HSV.pdf".format(nome),bbox_inches='tight')
     else:
-        if binary:
-            plt.savefig("{}_matrix_RGB_Binary.pdf".format(
-                nome), bbox_inches='tight')
-        else:
-            plt.savefig("{}_matrix_RGB.pdf".format(nome), bbox_inches='tight')
-
+        plt.savefig("{}_matrix_RGB.pdf".format(nome),bbox_inches='tight')
     print('\n')
     print('\n')
 
@@ -217,6 +172,7 @@ def get_data_labels(hsv):
 
     return data, labels
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -231,17 +187,17 @@ class bcolors:
 
 if __name__ == '__main__':
     rslt = []
-    # hsv = False
-    # binary = False
+    hsv = False
+    binary = False
 
-    # x, y = get_data_labels(hsv)
-    # rslt.append(ApplyesKFold(x, y, hsv, binary))
+    x, y = get_data_labels(hsv)
+    rslt.append(ApplyesKFold(x, y, hsv, binary))
 
-    # hsv = True
-    # binary = False
+    hsv = True
+    binary = False
 
-    # x, y = get_data_labels(hsv)
-    # rslt.append(ApplyesKFold(x, y, hsv, binary))
+    x, y = get_data_labels(hsv)
+    rslt.append(ApplyesKFold(x, y, hsv, binary))
 
     hsv = False
     binary = True

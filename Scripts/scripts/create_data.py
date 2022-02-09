@@ -9,10 +9,18 @@ import csv
 
 def getMeanRGB(image_path):
     rgb_img = cv2.imread(image_path)
+    
+    ## White Balance
+    # rgb_img = white_balance(rgb_img)
+
+    ## White Balance GrayworldWB
     # wb = cv2.xphoto.createGrayworldWB()
-    # wb.setSaturationThreshold(0.2)
+    # wb.setSaturationThreshold(0.5)
     # rgb_img = wb.balanceWhite(rgb_img)
+
+    ## Blur
     # rgb_img = cv2.medianBlur(src=rgb_img, ksize=9)
+
     R, G, B = cv2.split(rgb_img)
 
     return ((round(np.mean(R)), round(np.mean(G)), round(np.mean(B))))
@@ -20,10 +28,18 @@ def getMeanRGB(image_path):
 
 def getMeanHSV(image_path):
     rgb_img = cv2.imread(image_path)
+    
+    ## White Balance
+    # rgb_img = white_balance(rgb_img)
+
+    ## White Balance GrayworldWB
     # wb = cv2.xphoto.createGrayworldWB()
-    # wb.setSaturationThreshold(0.2)
+    # wb.setSaturationThreshold(0.5)
     # rgb_img = wb.balanceWhite(rgb_img)
+
+    ## Blur
     # rgb_img = cv2.medianBlur(src=rgb_img, ksize=9)
+
     hsv_img = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2HSV)
     H, S, V = cv2.split(hsv_img)
 
@@ -78,6 +94,7 @@ def getMeanLAB(image_path):
 
 def getMeanGray(image_path):
     rgb_img = cv2.imread(image_path)
+    rgb_img = cv2.medianBlur(src=rgb_img, ksize=9)
     gray_img = cv2.cvtColor(rgb_img, cv2.COLOR_RGB2GRAY)
     gray = cv2.split(gray_img)
     return round(np.mean(gray))
@@ -90,9 +107,9 @@ def createData():
     types = ['Folha', 'Cafe']
 
     header = ['ID', 'Device', 'Height', 'Width', 'Num_sample', 'Lighting_condition', 'R_mean', 'G_mean', 'B_mean', 'Paper_R_mean',
-              'Paper_G_mean', 'Paper_B_mean', 'H_mean', 'S_mean', 'V_mean', 'Paper_H_mean', 'Paper_S_mean', 'Paper_V_mean', 'Agtron_value', 'File', 'Path']
+              'Paper_G_mean', 'Paper_B_mean', 'H_mean', 'S_mean', 'V_mean', 'Paper_H_mean', 'Paper_S_mean', 'Paper_V_mean', 'gray_coffe', 'gray_paper','Agtron_value', 'File', 'Path']
 
-    data = []
+    # data = ['Dispositivo', 'Altura', 'Largura', 'Iluminacao', 'Nome']
 
     for device in devices:
         print("### {} ###".format(device))
@@ -107,8 +124,9 @@ def createData():
                     img = cv2.imread(img_path)
 
                     if option == 'Folha':
-                        R, G, B = getMeanRGBequalized(img_path)
-                        H, S, V = getMeanHSVequalized(img_path)
+                        R, G, B = getMeanRGB(img_path)
+                        H, S, V = getMeanHSV(img_path)
+                        gray_paper  = getMeanGray(img_path)
                         data_papers.append([R, G, B, H, S, V])
                     else:
                         print(file)
@@ -119,12 +137,13 @@ def createData():
                             paper = data_papers[int(file[3]) - 1]
 
                         height, width, channels = img.shape
-
-                        R, G, B = getMeanRGBequalized(img_path)
-                        H, S, V = getMeanHSVequalized(img_path)
+                        
+                        R, G, B = getMeanRGB(img_path)
+                        H, S, V = getMeanHSV(img_path)
+                        gray_coffe  = getMeanGray(img_path)
 
                         data.append([id_count, device, height,
-                                    width, file[3], condition, R, G, B, paper[0], paper[1], paper[2], H, S, V, paper[3], paper[4], paper[5], 'Agtron {}'.format(file[0:2]), file, img_path])
+                                    width, file[3], condition, R, G, B, paper[0], paper[1], paper[2], H, S, V, paper[3], paper[4], paper[5], gray_coffe, gray_paper,'Agtron {}'.format(file[0:2]), file, img_path])
 
                         id_count = id_count + 1
 
