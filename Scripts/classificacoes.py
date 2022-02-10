@@ -29,7 +29,7 @@ import time
 # Esconde os warnings
 import warnings
 
-random_state = 42
+RANDOM_STATE = 42
 EXPORT_MATRIZ = True
 DEBUG_PRINT = False
 
@@ -47,11 +47,11 @@ class bcolors:
 def configurarClassificadores():
     # Floresta Aleatória
     randomForest = RandomForestClassifier(
-        n_estimators=500, max_features="auto", random_state=random_state, class_weight="balanced_subsample")
+        n_estimators=500, max_features="auto", random_state=RANDOM_STATE, class_weight="balanced_subsample")
 
     # Perceptron Multicamadas
     mplc = MLPClassifier(max_iter=25000, activation='identity',
-                         solver='lbfgs', hidden_layer_sizes=(9, 2), random_state=random_state)
+                         solver='lbfgs', hidden_layer_sizes=(9, 2), random_state=RANDOM_STATE)
 
     # Naive Bayes
     mnb = MultinomialNB()
