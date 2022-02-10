@@ -30,7 +30,7 @@ import time
 import warnings
 
 random_state = 42
-EXPORT_MATRIZ = False
+EXPORT_MATRIZ = True
 DEBUG_PRINT = False
 
 # Define cores no print
