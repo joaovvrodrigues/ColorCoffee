@@ -8,6 +8,8 @@
 .buildlog/
 .history
 .svn/
+/Scripts/corta_fotos/crop/
+/Scripts/corta_fotos/imagens/
 
 # IntelliJ related
 *.iml

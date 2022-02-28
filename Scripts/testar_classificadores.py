@@ -167,19 +167,19 @@ def matrizConfusao(nome, y, y_pred, ESPACO_COR, FILTRO):
 
     if(ESPACO_COR == 0):
         if(FILTRO):
-            caminho = 'matrizes/all/com_filtro/'
+            caminho = 'matrizes_confusao/all/com_filtro/'
         else:
-            caminho = 'matrizes/all/sem_filtro/'
+            caminho = 'matrizes_confusao/all/sem_filtro/'
     elif(ESPACO_COR == 1):
         if(FILTRO):
-            caminho = 'matrizes/rgb/com_filtro/'
+            caminho = 'matrizes_confusao/rgb/com_filtro/'
         else:
-            caminho = 'matrizes/rgb/sem_filtro/'
+            caminho = 'matrizes_confusao/rgb/sem_filtro/'
     elif(ESPACO_COR == 2):
         if(FILTRO):
-            caminho = 'matrizes/hsv/com_filtro/'
+            caminho = 'matrizes_confusao/hsv/com_filtro/'
         else:
-            caminho = 'matrizes/hsv/sem_filtro/'
+            caminho = 'matrizes_confusao/hsv/sem_filtro/'
 
     # Salva a figura
     plt.savefig("{}{}.pdf".format(caminho, nome), bbox_inches='tight')
@@ -213,7 +213,7 @@ def script(x_axis, y_axis, ESPACO_COR, FILTRO):
 # Função para montar o dataset conforme necessário
 def montarDataSet(FILE, ESPACO_COR):
     # Pegando a base e dividindo em treino e teste
-    dataframe = pd.read_csv('./data/{}.csv'.format(FILE))  # , delimiter = ';')
+    dataframe = pd.read_csv('./dataset/{}.csv'.format(FILE))  # , delimiter = ';')
 
     # Remove Agtron #95
     dataframe = dataframe[dataframe.Agtron != 'Agtron 95']

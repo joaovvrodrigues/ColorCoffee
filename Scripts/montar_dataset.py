@@ -99,11 +99,11 @@ def quantizacaoCores(rgb_img, n_clusters=6):
 # As imagens que foram tiradas em uma mesma condição de iluminação, possuem os mesmos valores para folha
 def criarDataSet(filtros):
     data = []
-    dataframe = pd.read_csv('./imagens_completo.csv', delimiter = ';')
+    dataframe = pd.read_csv('./lista_imagens.csv', delimiter = ';')
     
     for imagem in dataframe.values:       
-        img_cafe = cv2.imread('./data_foto/{}'.format(imagem[0]))
-        img_folha = cv2.imread('./data_foto/{}'.format(imagem[1]))
+        img_cafe = cv2.imread('./data_fotos/{}'.format(imagem[0]))
+        img_folha = cv2.imread('./data_fotos/{}'.format(imagem[1]))
         valor_agtron = imagem[2]
 
         if(filtros):
@@ -155,7 +155,7 @@ def criarDataSet(filtros):
 
 # Função para exportar arquivo CSV
 def exportarCSV(header, data, name):
-    with open('./data/{}.csv'.format(name), 'w', encoding='UTF8', newline='') as f:
+    with open('./dataset/{}.csv'.format(name), 'w', encoding='UTF8', newline='') as f:
         writer = csv.writer(f)
         # Escreve o cabeçalho (header)
         writer.writerow(header)
@@ -166,15 +166,22 @@ def exportarCSV(header, data, name):
 if __name__ == '__main__':
     # Ocultando os warnings
     warnings.filterwarnings(action='ignore')
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
+    print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset SEM filtro'}{bcolors.ENDC}\n")
 
     # Roda o primeiro teste SEM filtro
     FILTRO = False
     FILE = 'all_semfiltro_2'
     header, data = criarDataSet(FILTRO)
     exportarCSV(header, data, FILE)
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------\n'}{bcolors.ENDC}\n")
+
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'\n--------------------'}{bcolors.ENDC}\n")
+    print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset COM filtro'}{bcolors.ENDC}\n")
 
     # Roda o segundo teste COM filtro
     FILTRO = True
     FILE = 'all_comfiltro_2'
     header, data = criarDataSet(FILTRO)
     exportarCSV(header, data, FILE)
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
