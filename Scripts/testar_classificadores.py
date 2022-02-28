@@ -1,4 +1,5 @@
 # Models.
+from asyncio.windows_events import NULL
 from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import MultinomialNB
@@ -29,9 +30,14 @@ import time
 # Esconde os warnings
 import warnings
 
+# Escrever resultados
+from datetime import datetime
+
+
 RANDOM_STATE = 42
 EXPORT_MATRIZ = False
 DEBUG_PRINT = False
+arquivo = NULL
 
 # Define cores no print
 class bcolors:
@@ -133,6 +139,21 @@ def printMetricas(pred1, tempo1, pred2, tempo2, pred3, tempo3, y, ESPACO_COR, FI
     print(f"{bcolors.BOLD}{bcolors.BLUE}{'Naive Bayes'}{bcolors.ENDC}")
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{nb}{bcolors.ENDC}\n")
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
+
+    arquivo.write("Data Execução: {}\n".format(datetime.today().strftime('%Y-%m-%d %H:%M')))
+    arquivo.write(info)
+    arquivo.write('\n')
+    arquivo.write('Random Forest\n')
+    arquivo.write(randomForest)
+    arquivo.write('\n')
+    arquivo.write('Multi-layer Perceptron\n')
+    arquivo.write(mplc)
+    arquivo.write('\n')
+    arquivo.write('Naive Bayes\n')
+    arquivo.write(nb)
+    arquivo.write('\n')
+    arquivo.write('\n')
+    
 
 
 # Função para salvar a matriz de confusão em disco como PDF
@@ -257,6 +278,11 @@ if __name__ == '__main__':
     # Ocultando os warnings
     warnings.filterwarnings(action='ignore')
 
+    arquivo = open('log_classificacoes.txt'.format(datetime.today().strftime('%Y-%m-%d %H')),'a')
+    arquivo.write('---------- NOVA CLASSIFICAÇÃO ----------\n')
+    arquivo.write('\n')
+    arquivo.write("Data Execução: {}\n\n".format(datetime.today().strftime('%Y-%m-%d %H:%M')))
+   
     # Roda o primeiro teste SEM filtro
     FILTRO = False
     FILE = 'all_semfiltro_2'
@@ -276,3 +302,6 @@ if __name__ == '__main__':
         x, y = pegarRotulos(FILE, ESPACO_COR)
         script(x, y, ESPACO_COR, FILTRO)
         ESPACO_COR = ESPACO_COR + 1
+        
+    arquivo.write('\n---------------------------------------\n')
+    arquivo.close()

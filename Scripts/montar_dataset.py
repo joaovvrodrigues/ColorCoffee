@@ -174,9 +174,9 @@ if __name__ == '__main__':
     FILE = 'all_semfiltro_2'
     header, data = criarDataSet(FILTRO)
     exportarCSV(header, data, FILE)
-    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------\n'}{bcolors.ENDC}\n")
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
 
-    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'\n--------------------'}{bcolors.ENDC}\n")
+    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
     print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset COM filtro'}{bcolors.ENDC}\n")
 
     # Roda o segundo teste COM filtro
