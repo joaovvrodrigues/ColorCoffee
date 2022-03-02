@@ -1,23 +1,19 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:isolate';
 import 'dart:math';
 import 'dart:typed_data';
-import 'package:flutter/foundation.dart';
-import 'package:collection/collection.dart';
 
-import 'package:image/image.dart' as img;
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:opencv_4/factory/pathfrom.dart';
-import 'package:opencv_4/opencv_4.dart';
-import '../../openCV/native_opencv.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:camera_camera/camera_camera.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image/image.dart' as img;
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:opencv_4/factory/pathfrom.dart';
+import 'package:opencv_4/opencv_4.dart';
+import 'package:path_provider/path_provider.dart';
+
 import '../../theme/theme.dart';
-import '../analysis/analysis_page.dart';
 import 'widgets/elevated_button.dart';
 import 'widgets/tutorial_dialog.dart';
 
@@ -55,10 +51,9 @@ class _GetImagePageState extends State<GetImagePage> {
                 icon: Icons.ac_unit,
                 text: 'Test',
                 onPressed: () async {
-                  EasyLoading.show(
-                      status: 'Processando...', dismissOnTap: true);
+                  EasyLoading.show(status: 'Processando...', dismissOnTap: true);
 
-                  await Future.delayed(Duration(seconds: 2));
+                  await Future.delayed(const Duration(seconds: 2));
 
                   await Future.microtask(() async {
                     _byte = await Cv2.pyrMeanShiftFiltering(
@@ -106,23 +101,16 @@ class _GetImagePageState extends State<GetImagePage> {
                         vBucket.add(vAux);
                       }
                     }
-                    print(
-                        "${hBucket.average.round()}, ${sBucket.average.round()}, ${vBucket.average.round()}");
+                    print('${hBucket.average.round()}, ${sBucket.average.round()}, ${vBucket.average.round()}');
                   }
                 }),
             // () => Navigator.of(context).push(MaterialPageRoute(
             //     builder: (context) => const AnalysisPage()))),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
-              child: CustomButton(
-                  icon: Icons.camera_alt_rounded,
-                  text: 'Capturar imagem',
-                  onPressed: takePhoto),
+              child: CustomButton(icon: Icons.camera_alt_rounded, text: 'Capturar imagem', onPressed: takePhoto),
             ),
-            CustomButton(
-                icon: Icons.photo_library_rounded,
-                text: 'Selecionar imagem',
-                onPressed: pickImage)
+            CustomButton(icon: Icons.photo_library_rounded, text: 'Selecionar imagem', onPressed: pickImage)
           ],
         )));
   }
@@ -130,20 +118,21 @@ class _GetImagePageState extends State<GetImagePage> {
   void takePhoto() async {
     String? imagePath;
 
-    await Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (_) => CameraCamera(
-                  onFile: (file) {
-                    imagePath = file.path;
-                    Navigator.pop(context);
-                    setState(() {});
-                  },
-                )));
+    // TODO: Mudar camera
+    // await Navigator.push(
+    //     context,
+    //     MaterialPageRoute(
+    //         builder: (_) => CameraCamera(
+    //               onFile: (file) {
+    //                 imagePath = file.path;
+    //                 Navigator.pop(context);
+    //                 setState(() {});
+    //               },
+    //             )));
 
     if (imagePath != null) {
       Random _rnd = Random();
-      await cropImage(imagePath!, _rnd.nextInt(10).toString());
+      await cropImage(imagePath, _rnd.nextInt(10).toString());
     }
   }
 
@@ -162,7 +151,7 @@ class _GetImagePageState extends State<GetImagePage> {
           return const TutorialDialog();
         });
     if (according != null) {
-      croppedFile = await ImageCropper.cropImage(
+      croppedFile = await ImageCropper().cropImage(
           sourcePath: path,
           cropStyle: CropStyle.rectangle,
           // maxHeight: 128,

@@ -26,10 +26,10 @@ android {
     pickFirst '**/*.so'
 }
 
-    compileSdkVersion 30
+    compileSdkVersion 31
 
     defaultConfig {
-        minSdkVersion 24
+        minSdkVersion 27
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {

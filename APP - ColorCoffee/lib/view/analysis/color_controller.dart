@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:typed_data';
+
+import 'package:collection/collection.dart';
+import 'package:color/color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:image/image.dart' as img;
-import 'package:color/color.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:http/http.dart' as http;
+import 'package:image/image.dart' as img;
+
 import '../../model/roast.dart';
-import 'package:collection/collection.dart';
 
 class ColorControll {
   static const debugUploadUrl = 'http://192.168.1.29:33/';
@@ -27,8 +28,7 @@ class ColorControll {
         },
       );
     } catch (e) {
-      EasyLoading.showInfo(
-          'Algo deu errado com nosso servidor. \n ${e.toString()}');
+      EasyLoading.showInfo('Algo deu errado com nosso servidor. \n ${e.toString()}');
     } finally {
       if (response != null && response.statusCode == 200) {
         roast.value = Roast.fromJson(response.body);
@@ -68,10 +68,8 @@ class ColorControll {
       print('getWhiteBalance: ${bitmap.getWhiteBalance()}');
     }
 
-    RgbColor rgb = RgbColor(redBucket.average.round(),
-        greenBucket.average.round(), blueBucket.average.round());
-    HsvColor hsv = HsvColor(hBucket.average.round(), sBucket.average.round(),
-        vBucket.average.round());
+    RgbColor rgb = RgbColor(redBucket.average.round(), greenBucket.average.round(), blueBucket.average.round());
+    HsvColor hsv = HsvColor(hBucket.average.round(), sBucket.average.round(), vBucket.average.round());
 
     print(rgb.toHsvColor());
     print('rgb: $rgb');
@@ -121,12 +119,9 @@ class ColorControll {
       print('getWhiteBalance: ${bitmap.getWhiteBalance()}');
     }
 
-    RgbColor rgb = RgbColor(redBucket ~/ pixelCount, greenBucket ~/ pixelCount,
-        blueBucket ~/ pixelCount);
-    HsvColor hsv1 = HsvColor(
-        hBucket ~/ pixelCount, sBucket ~/ pixelCount, vBucket ~/ pixelCount);
-    HsvColor hsv2 = HsvColor(
-        hBucket / pixelCount, sBucket / pixelCount, vBucket / pixelCount);
+    RgbColor rgb = RgbColor(redBucket ~/ pixelCount, greenBucket ~/ pixelCount, blueBucket ~/ pixelCount);
+    HsvColor hsv1 = HsvColor(hBucket ~/ pixelCount, sBucket ~/ pixelCount, vBucket ~/ pixelCount);
+    HsvColor hsv2 = HsvColor(hBucket / pixelCount, sBucket / pixelCount, vBucket / pixelCount);
 
     print('rgb: $rgb');
     print('rgb to HSV: ${rgb.toHsvColor()}');
@@ -161,23 +156,20 @@ class ColorControll {
         }),
       );
     } catch (e) {
-      await EasyLoading.showError('Erro inesperado! \n ${e.toString()}',
-          duration: const Duration(seconds: 2));
+      await EasyLoading.showError('Erro inesperado! \n ${e.toString()}', duration: const Duration(seconds: 2));
     } finally {
       await EasyLoading.dismiss();
 
       if (response != null) {
         switch (response.statusCode) {
           case 200:
-            EasyLoading.showSuccess('Enviado!',
-                duration: const Duration(seconds: 1));
+            EasyLoading.showSuccess('Enviado!', duration: const Duration(seconds: 1));
 
             roast.value = Roast.fromJson(response.body);
             break;
 
           default:
-            await EasyLoading.showInfo('Algo deu errado.',
-                duration: const Duration(seconds: 2));
+            await EasyLoading.showInfo('Algo deu errado.', duration: const Duration(seconds: 2));
         }
       }
     }
@@ -188,48 +180,39 @@ class ColorControll {
 
     http.StreamedResponse? streamedResponse;
 
-    Uri postUri =
-        Uri.parse(debug ? debugUploadUrl + 'send' : uploadUrl + 'send');
+    Uri postUri = Uri.parse(debug ? debugUploadUrl + 'send' : uploadUrl + 'send');
     http.MultipartRequest request = http.MultipartRequest('POST', postUri);
-    request.files.add(http.MultipartFile(
-        'file', image.readAsBytes().asStream(), await image.length(),
+    request.files.add(http.MultipartFile('file', image.readAsBytes().asStream(), await image.length(),
         filename: DateTime.now().millisecondsSinceEpoch.toString() + '.png'));
 
     try {
       streamedResponse = await request.send();
     } catch (e) {
-      await EasyLoading.showError('Erro inesperado! \n ${e.toString()}',
-          duration: const Duration(seconds: 2));
+      await EasyLoading.showError('Erro inesperado! \n ${e.toString()}', duration: const Duration(seconds: 2));
     } finally {
-      await Future.delayed(const Duration(seconds: 1))
-          .then((value) => EasyLoading.dismiss());
+      await Future.delayed(const Duration(seconds: 1)).then((value) => EasyLoading.dismiss());
 
       await Future.delayed(const Duration(milliseconds: 600));
 
       if (streamedResponse != null) {
         switch (streamedResponse.statusCode) {
           case 200:
-            EasyLoading.showSuccess('Enviado!',
-                duration: const Duration(seconds: 2));
-            http.Response response =
-                await http.Response.fromStream(streamedResponse);
+            EasyLoading.showSuccess('Enviado!', duration: const Duration(seconds: 2));
+            http.Response response = await http.Response.fromStream(streamedResponse);
 
             roast.value = Roast.fromJson(response.body);
             break;
 
           case 400:
-            await EasyLoading.showError('Arquivo não encontrado!',
-                duration: const Duration(seconds: 2));
+            await EasyLoading.showError('Arquivo não encontrado!', duration: const Duration(seconds: 2));
             break;
 
           case 403:
-            await EasyLoading.showError('Arquivo inválido!',
-                duration: const Duration(seconds: 2));
+            await EasyLoading.showError('Arquivo inválido!', duration: const Duration(seconds: 2));
             break;
 
           default:
-            await EasyLoading.showInfo('Algo deu errado.',
-                duration: const Duration(seconds: 2));
+            await EasyLoading.showInfo('Algo deu errado.', duration: const Duration(seconds: 2));
         }
       }
     }
