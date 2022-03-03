@@ -1,5 +1,4 @@
 # Models.
-from asyncio.windows_events import NULL
 from sklearn.neural_network import MLPClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.naive_bayes import MultinomialNB
@@ -33,11 +32,16 @@ import warnings
 # Escrever resultados
 from datetime import datetime
 
+# Processamento em paralelo
+from sklearn.utils import parallel_backend
+
+from sklearn.feature_selection import SelectFromModel
+from sklearn.feature_selection import RFE
 
 RANDOM_STATE = 42
-EXPORT_MATRIZ = False
+EXPORT_MATRIZ = True
 DEBUG_PRINT = False
-arquivo = NULL
+arquivo = ''
 
 # Define cores no print
 class bcolors:
@@ -52,12 +56,16 @@ class bcolors:
 # Função para configurar e retornar os classificadores
 def configurarClassificadores():
     # Floresta Aleatória
-    randomForest = RandomForestClassifier(
-        n_estimators=500, max_features="auto", random_state=RANDOM_STATE, class_weight="balanced_subsample")
+    randomForest = RandomForestClassifier(n_estimators=500, max_depth=12, bootstrap=True, criterion= 'entropy', 
+       max_features="auto", random_state=RANDOM_STATE, class_weight="balanced_subsample")
+    
+    randomForest = RFE(randomForest, n_features_to_select=None, step=1)
 
+
+    # {'activation': 'identity', 'alpha': 0.05, 'hidden_layer_sizes': (10,), 'learning_rate': 'adaptive', 'random_state': 42, 'solver': 'sgd'}
     # Perceptron Multicamadas
-    mplc = MLPClassifier(max_iter=25000, activation='identity',
-                         solver='lbfgs', hidden_layer_sizes=(9, 2), random_state=RANDOM_STATE)
+    mplc = MLPClassifier(max_iter=25000,alpha= 0.05, activation='identity', learning_rate='adaptive',
+                         solver='sgd', hidden_layer_sizes=(10,), random_state=RANDOM_STATE)
 
     # Naive Bayes
     mnb = MultinomialNB()
@@ -71,7 +79,8 @@ def aplicarKFold(classificador, x, y):
 
     # Aplicando KFold nos modelos e calculando tempo decorrido
     inicio = time.time()
-    pred = cross_val_predict(classificador, x, y, cv=kfold)
+    with parallel_backend('threading'):
+        pred = cross_val_predict(classificador, x, y, cv=kfold)
     fim = time.time()
 
     tempo = np.round(fim - inicio, 4)
@@ -277,12 +286,11 @@ def pegarRotulos(FILE, ESPACO_COR):
 if __name__ == '__main__':
     # Ocultando os warnings
     warnings.filterwarnings(action='ignore')
-
     arquivo = open('log_classificacoes.txt'.format(datetime.today().strftime('%Y-%m-%d %H')),'a')
     arquivo.write('---------- NOVA CLASSIFICAÇÃO ----------\n')
     arquivo.write('\n')
     arquivo.write("Data Execução: {}\n\n".format(datetime.today().strftime('%Y-%m-%d %H:%M')))
-   
+    
     # Roda o primeiro teste SEM filtro
     FILTRO = False
     FILE = 'all_semfiltro_2'
