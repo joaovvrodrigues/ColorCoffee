@@ -56,16 +56,16 @@ class bcolors:
 # Função para configurar e retornar os classificadores
 def configurarClassificadores():
     # Floresta Aleatória
+    # {'bootstrap': True, 'class_weight': 'balanced', 'criterion': 'entropy', 'max_depth': 4, 'max_features': 'sqrt', 'n_estimators': 100, 'random_state': 42}
     randomForest = RandomForestClassifier(n_estimators=500, max_depth=12, bootstrap=True, criterion= 'entropy', 
        max_features="auto", random_state=RANDOM_STATE, class_weight="balanced_subsample")
     
-    randomForest = RFE(randomForest, n_features_to_select=None, step=1)
+    # randomForest = RFE(randomForest, n_features_to_select=None, step=1)
 
-
-    # {'activation': 'identity', 'alpha': 0.05, 'hidden_layer_sizes': (10,), 'learning_rate': 'adaptive', 'random_state': 42, 'solver': 'sgd'}
+    # {'activation': 'identity', 'alpha': 0.0001, 'hidden_layer_sizes': (1, 2), 'learning_rate': 'adaptive', 'random_state': 42, 'solver': 'lbfgs'}
     # Perceptron Multicamadas
-    mplc = MLPClassifier(max_iter=25000,alpha= 0.05, activation='identity', learning_rate='adaptive',
-                         solver='sgd', hidden_layer_sizes=(10,), random_state=RANDOM_STATE)
+    mplc = MLPClassifier(max_iter=25000,alpha= 0.0001, activation='identity', learning_rate='adaptive',
+                         solver='lbfgs', hidden_layer_sizes=(1, 2), random_state=RANDOM_STATE)
 
     # Naive Bayes
     mnb = MultinomialNB()
@@ -251,6 +251,8 @@ def montarDataSet(FILE, ESPACO_COR):
     # Remove Agtron #85
     dataframe = dataframe[dataframe.Agtron != 'Agtron 85']
 
+    # dataframe = dataframe[dataframe.Agtron != 'Agtron 55']
+
     # Deixa somente informações em RGB
     if(ESPACO_COR == 1):
         dataframe = dataframe.drop(
@@ -301,15 +303,15 @@ if __name__ == '__main__':
         script(x, y, ESPACO_COR, FILTRO)
         ESPACO_COR = ESPACO_COR + 1
 
-    # Roda o segundo teste COM filtro
-    FILTRO = True
-    FILE = 'all_comfiltro_2'
-    ESPACO_COR = 0
+    # # Roda o segundo teste COM filtro
+    # FILTRO = True
+    # FILE = 'all_comfiltro_2'
+    # ESPACO_COR = 0
 
-    while ESPACO_COR < 3:
-        x, y = pegarRotulos(FILE, ESPACO_COR)
-        script(x, y, ESPACO_COR, FILTRO)
-        ESPACO_COR = ESPACO_COR + 1
+    # while ESPACO_COR < 3:
+    #     x, y = pegarRotulos(FILE, ESPACO_COR)
+    #     script(x, y, ESPACO_COR, FILTRO)
+    #     ESPACO_COR = ESPACO_COR + 1
         
     arquivo.write('\n---------------------------------------\n')
     arquivo.close()

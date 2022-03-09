@@ -1,3 +1,4 @@
+from matplotlib import image
 import cv2
 import numpy as np
 import pandas as pd
@@ -101,56 +102,57 @@ def criarDataSet(filtros):
     data = []
     dataframe = pd.read_csv('./lista_imagens.csv', delimiter = ';')
     
-    for imagem in dataframe.values:       
-        img_cafe = cv2.imread('./data_fotos/{}'.format(imagem[0]))
-        img_folha = cv2.imread('./data_fotos/{}'.format(imagem[1]))
-        valor_agtron = imagem[2]
+    for imagem in dataframe.values:
+        if(imagem[5] == True and imagem[4] != 'Lumix' and imagem[4] != 'Lumix' and imagem[4] != 'Motorola X4'):       
+            img_cafe = cv2.imread('./data_fotos/{}'.format(imagem[0]))
+            img_folha = cv2.imread('./data_fotos/{}'.format(imagem[1]))
+            valor_agtron = imagem[2]
 
-        if(filtros):
-            # Aplica suaviação pela mediana
-            img_cafe = cv2.medianBlur(src=img_cafe, ksize=9)
-            img_folha = cv2.medianBlur(src=img_folha, ksize=9)
+            if(filtros):
+                # Aplica suaviação pela mediana
+                img_cafe = cv2.medianBlur(src=img_cafe, ksize=9)
+                img_folha = cv2.medianBlur(src=img_folha, ksize=9)
 
-            # Aplica o processo de quantização de cores
-            img_cafe = quantizacaoCores(img_cafe, n_clusters=6)
-            img_folha = quantizacaoCores(img_folha, n_clusters=6)
+                # Aplica o processo de quantização de cores
+                img_cafe = quantizacaoCores(img_cafe, n_clusters=6)
+                img_folha = quantizacaoCores(img_folha, n_clusters=6)
 
-        # Opção folha é SEMPRE extraída primeiro.
-        # Se a opção for do tipo "FOLHA", que determina a condição de iluminação
-        # Extrair os canais RGB e HSV, calculando suas respectivas médias e desvio padrão
-        
-        R_f, G_f, B_f = extrairRGB(img_folha, equalizar=filtros)
-        media_folha_RGB = np.mean([R_f, G_f, B_f])
-        desvio_folha_RGB = np.std([R_f, G_f, B_f])
+            # Opção folha é SEMPRE extraída primeiro.
+            # Se a opção for do tipo "FOLHA", que determina a condição de iluminação
+            # Extrair os canais RGB e HSV, calculando suas respectivas médias e desvio padrão
+            
+            R_f, G_f, B_f = extrairRGB(img_folha, equalizar=filtros)
+            media_folha_RGB = np.mean([R_f, G_f, B_f])
+            desvio_folha_RGB = np.std([R_f, G_f, B_f])
 
-        H_f, S_f, V_f = extrairHSV(img_folha, equalizar=filtros)
-        media_folha_HSV = np.mean([H_f, S_f, V_f])
-        desvio_folha_HSV = np.std([H_f, S_f, V_f])
+            H_f, S_f, V_f = extrairHSV(img_folha, equalizar=filtros)
+            media_folha_HSV = np.mean([H_f, S_f, V_f])
+            desvio_folha_HSV = np.std([H_f, S_f, V_f])
 
-        # Se for do tipo café
-        # Extrair os canais RGB e HSV, calculando suas respectivas médias e desvio padrão
-        
-        R_c, G_c, B_c = extrairRGB(img_cafe, equalizar=filtros)
-        H_c, S_c, V_c = extrairHSV(img_cafe, equalizar=filtros)
+            # Se for do tipo café
+            # Extrair os canais RGB e HSV, calculando suas respectivas médias e desvio padrão
+            
+            R_c, G_c, B_c = extrairRGB(img_cafe, equalizar=filtros)
+            H_c, S_c, V_c = extrairHSV(img_cafe, equalizar=filtros)
 
-        media_cafe_RGB = np.mean([R_c, G_c, B_c])
-        desvio_cafe_RGB = np.std([R_c, G_c, B_c])
+            media_cafe_RGB = np.mean([R_c, G_c, B_c])
+            desvio_cafe_RGB = np.std([R_c, G_c, B_c])
 
-        media_cafe_HSV = np.mean([H_c, S_c, V_c])
-        desvio_cafe_HSV = np.std([H_c, S_c, V_c])
+            media_cafe_HSV = np.mean([H_c, S_c, V_c])
+            desvio_cafe_HSV = np.std([H_c, S_c, V_c])
 
-        # Monta uma linsta com as informações extraídas
-        geral = [media_cafe_RGB, np.mean(R_c), np.mean(G_c), np.mean(B_c), desvio_cafe_RGB, np.std(R_c), np.std(G_c), np.std(B_c), media_folha_RGB, desvio_folha_RGB, media_cafe_HSV, np.mean(H_c), np.mean(S_c), np.mean(V_c), desvio_cafe_HSV, np.std(H_c), np.std(S_c), np.std(
-            V_c), media_folha_HSV, desvio_folha_HSV]
+            # Monta uma linsta com as informações extraídas
+            geral = [media_cafe_RGB, np.mean(R_c), np.mean(G_c), np.mean(B_c), desvio_cafe_RGB, np.std(R_c), np.std(G_c), np.std(B_c), media_folha_RGB, desvio_folha_RGB, media_cafe_HSV, np.mean(H_c), np.mean(S_c), np.mean(V_c), desvio_cafe_HSV, np.std(H_c), np.std(S_c), np.std(
+                V_c), media_folha_HSV, desvio_folha_HSV]
 
-        # Arrendonda os valores da lista, para que tenham somente 3 casa decimais
-        geral_arredondado = [round(num, 3) for num in geral]
+            # Arrendonda os valores da lista, para que tenham somente 3 casa decimais
+            geral_arredondado = [round(num, 3) for num in geral]
 
-        # Adiciona a lista o valor Agtron da amostra, que está no nome do arquivo
-        geral_arredondado.append('Agtron {}'.format(valor_agtron))
+            # Adiciona a lista o valor Agtron da amostra, que está no nome do arquivo
+            geral_arredondado.append('Agtron {}'.format(valor_agtron))
 
-        # Adiciona essa linha a lista de dados
-        data.append(geral_arredondado)
+            # Adiciona essa linha a lista de dados
+            data.append(geral_arredondado)
     return HEADER,  data
 
 # Função para exportar arquivo CSV
@@ -176,12 +178,12 @@ if __name__ == '__main__':
     exportarCSV(header, data, FILE)
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
 
-    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
-    print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset COM filtro'}{bcolors.ENDC}\n")
+    # print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
+    # print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset COM filtro'}{bcolors.ENDC}\n")
 
-    # Roda o segundo teste COM filtro
-    FILTRO = True
-    FILE = 'all_comfiltro_2'
-    header, data = criarDataSet(FILTRO)
-    exportarCSV(header, data, FILE)
-    print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
+    # # Roda o segundo teste COM filtro
+    # FILTRO = True
+    # FILE = 'all_comfiltro_2'
+    # header, data = criarDataSet(FILTRO)
+    # exportarCSV(header, data, FILE)
+    # print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
