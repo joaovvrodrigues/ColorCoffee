@@ -1,9 +1,9 @@
 import cv2
 import os
 
-x = 1795
-y = 1269
-h = (2817 - 1795)
+x = 1030
+y = 1489
+h = (1993 - x)
 
 for arquivo in os.listdir(path='.\\\imagens\\'):
     img = cv2.imread(".\\\imagens\\{}".format(arquivo))

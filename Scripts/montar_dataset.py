@@ -12,10 +12,12 @@ import warnings
 # Parametros
 RANDOM_STATE = 42
 DEBUG_PRINT = False
-HEADER = ['RGB_medio_cafe', 'R_medio_cafe', 'G_medio_cafe', 'B_medio_cafe', 'RGB_std_cafe', 'R_std_cafe', 'G_std_cafe', 'B_std_cafe',
-                            'RGB_medio_folha', 'RGB_std_folha', 'HSV_medio_cafe', 'H_medio_cafe', 'S_medio_cafe', 'V_medio_cafe', 'HSV_std_cafe', 'H_std_cafe', 'S_std_cafe', 'V_std_cafe',
-                            'HSV_medio_folha', 'HSV_std_folha', 'Agtron']
+# HEADER = ['RGB_medio_cafe', 'R_medio_cafe', 'G_medio_cafe', 'B_medio_cafe', 'RGB_std_cafe', 'R_std_cafe', 'G_std_cafe', 'B_std_cafe',
+#                             'RGB_medio_folha', 'RGB_std_folha', 'HSV_medio_cafe', 'H_medio_cafe', 'S_medio_cafe', 'V_medio_cafe', 'HSV_std_cafe', 'H_std_cafe', 'S_std_cafe', 'V_std_cafe',
+#                             'HSV_medio_folha', 'HSV_std_folha', 'Agtron']
 
+HEADER = ['cinza_cafe', 'R_medio_cafe', 'G_medio_cafe', 'B_medio_cafe', 'R_std_cafe', 'G_std_cafe', 'B_std_cafe',
+                            'cinza_folha',  'Agtron']
 # Define cores no print
 class bcolors:
     WARNING = '\033[93m'
@@ -167,7 +169,7 @@ def exportarCSV(header, data, name):
 
 if __name__ == '__main__':
     # Ocultando os warnings
-    warnings.filterwarnings(action='ignore')
+    # warnings.filterwarnings(action='ignore')
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
     print(f"{bcolors.BOLD}{bcolors.WARNING}{'Criando dataset SEM filtro'}{bcolors.ENDC}\n")
 

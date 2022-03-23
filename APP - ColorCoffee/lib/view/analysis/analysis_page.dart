@@ -1,4 +1,4 @@
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 
@@ -6,11 +6,9 @@ import '../../model/roast.dart';
 import 'color_controller.dart';
 
 class AnalysisPage extends StatefulWidget {
-  const AnalysisPage({
-    Key? key,
-    this.image,
-  }) : super(key: key);
-  final File? image;
+  const AnalysisPage({Key? key, required this.cafe, required this.folha}) : super(key: key);
+  final Uint8List cafe;
+  final Uint8List folha;
   @override
   State<AnalysisPage> createState() => _AnalysisPageState();
 }
@@ -20,9 +18,7 @@ class _AnalysisPageState extends State<AnalysisPage> {
 
   @override
   void initState() {
-    if (widget.image != null) {
-      controller.uploadColorToServer(widget.image!);
-    }
+    controller.uploadImageToServer(cafe: widget.cafe, folha: widget.folha);
     super.initState();
   }
 
@@ -39,17 +35,15 @@ class _AnalysisPageState extends State<AnalysisPage> {
             resizeToAvoidBottomInset: true,
             extendBody: true,
             body: AnimatedContainer(
-                color: value != null
-                    ? value.color.withAlpha(200)
-                    : const Color(0xFFFFF9F2).withAlpha(210),
+                color: value != null ? value.color.withAlpha(200) : const Color(0xFFFFF9F2).withAlpha(210),
                 duration: const Duration(seconds: 1),
                 child: Center(
                   child: value == null
-                      ? const SizedBox()
+                      ? SizedBox(child: Image.memory(widget.cafe))
                       : Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            SizedBox(child: Image.file(widget.image!)),
+                            SizedBox(child: Image.memory(widget.cafe)),
                             const SizedBox(height: 12),
                             const Text(
                               'Amostra',
@@ -59,15 +53,11 @@ class _AnalysisPageState extends State<AnalysisPage> {
                               child: Container(
                                 height: 100,
                                 width: 100,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8),
-                                    color: value.color),
+                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(8), color: value.color),
                               ),
                             ),
-                            const Text('Agtron',
-                                style: TextStyle(fontSize: 22)),
-                            Text(value.prediction.substring(7),
-                                style: const TextStyle(fontSize: 60)),
+                            const Text('Agtron', style: TextStyle(fontSize: 22)),
+                            Text(value.prediction, style: const TextStyle(fontSize: 60)),
                             // const SizedBox(height: 10),
                             // const Text('confiança'),
                             // Text('${value.confidence}%'),
@@ -79,9 +69,9 @@ class _AnalysisPageState extends State<AnalysisPage> {
               onPressed: () async {
                 // await controller.getRandomColor();
 
-                setState(() {
-                  controller.teste(widget.image!);
-                });
+                // setState(() {
+                //   controller.teste(widget.cafe!);
+                // });
               },
               tooltip: 'Random Color',
               child: const Icon(Icons.repeat_on_rounded),

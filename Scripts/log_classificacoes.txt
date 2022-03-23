@@ -524,303 +524,668 @@ Naive Bayes
 
 
 ---------------------------------------
----------- NOVA CLASSIFICAÇÃO ----------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
 
-Data Execução: 2022-03-08 19:43
+Data Execuï¿½ï¿½o: 2022-03-08 19:43
 
-Data Execução: 2022-03-08 19:43
+Data Execuï¿½ï¿½o: 2022-03-08 19:43
 RGB + HSV (SEM FILTRO)
 Random Forest
     F1: 55.3 %
-    Precisão: 55.7 %
+    Precisï¿½o: 55.7 %
     Recall": 55.7 %
     Tempo: 6.3331 s
 Multi-layer Perceptron
     F1: 49.0 %
-    Precisão: 49.5 %
+    Precisï¿½o: 49.5 %
     Recall": 50.9 %
     Tempo: 1.5153 s
 Naive Bayes
     F1: 40.0 %
-    Precisão: 39.6 %
+    Precisï¿½o: 39.6 %
     Recall": 40.5 %
     Tempo: 0.0183 s
 
-Data Execução: 2022-03-08 19:43
+Data Execuï¿½ï¿½o: 2022-03-08 19:43
 RGB (SEM FILTRO)
 Random Forest
     F1: 63.8 %
-    Precisão: 63.9 %
+    Precisï¿½o: 63.9 %
     Recall": 64.4 %
     Tempo: 5.5479 s
 Multi-layer Perceptron
     F1: 59.9 %
-    Precisão: 62.5 %
+    Precisï¿½o: 62.5 %
     Recall": 60.6 %
     Tempo: 0.9394 s
 Naive Bayes
     F1: 60.4 %
-    Precisão: 60.5 %
+    Precisï¿½o: 60.5 %
     Recall": 60.9 %
     Tempo: 0.0155 s
 
-Data Execução: 2022-03-08 19:43
+Data Execuï¿½ï¿½o: 2022-03-08 19:43
 HSV (SEM FILTRO)
 Random Forest
     F1: 49.1 %
-    Precisão: 52.1 %
+    Precisï¿½o: 52.1 %
     Recall": 47.8 %
     Tempo: 6.2675 s
 Multi-layer Perceptron
     F1: 37.1 %
-    Precisão: 36.8 %
+    Precisï¿½o: 36.8 %
     Recall": 39.4 %
     Tempo: 1.1334 s
 Naive Bayes
     F1: 29.6 %
-    Precisão: 29.7 %
+    Precisï¿½o: 29.7 %
     Recall": 29.8 %
     Tempo: 0.0139 s
 
 
 ---------------------------------------
----------- NOVA CLASSIFICAÇÃO ----------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
 
-Data Execução: 2022-03-08 19:52
+Data Execuï¿½ï¿½o: 2022-03-08 19:52
 
-Data Execução: 2022-03-08 19:52
+Data Execuï¿½ï¿½o: 2022-03-08 19:52
 RGB + HSV (SEM FILTRO)
 Random Forest
     F1: 55.3 %
-    Precisão: 55.7 %
+    Precisï¿½o: 55.7 %
     Recall": 55.7 %
     Tempo: 6.1315 s
 Multi-layer Perceptron
     F1: 70.8 %
-    Precisão: 71.3 %
+    Precisï¿½o: 71.3 %
     Recall": 70.9 %
     Tempo: 20.8793 s
 Naive Bayes
     F1: 40.0 %
-    Precisão: 39.6 %
+    Precisï¿½o: 39.6 %
     Recall": 40.5 %
     Tempo: 0.0168 s
 
-Data Execução: 2022-03-08 19:52
+Data Execuï¿½ï¿½o: 2022-03-08 19:52
 RGB (SEM FILTRO)
 Random Forest
     F1: 63.8 %
-    Precisão: 63.9 %
+    Precisï¿½o: 63.9 %
     Recall": 64.4 %
     Tempo: 5.3028 s
 Multi-layer Perceptron
     F1: 54.8 %
-    Precisão: 55.5 %
+    Precisï¿½o: 55.5 %
     Recall": 55.0 %
     Tempo: 5.2651 s
 Naive Bayes
     F1: 60.4 %
-    Precisão: 60.5 %
+    Precisï¿½o: 60.5 %
     Recall": 60.9 %
     Tempo: 0.0183 s
 
-Data Execução: 2022-03-08 19:52
+Data Execuï¿½ï¿½o: 2022-03-08 19:52
 HSV (SEM FILTRO)
 Random Forest
     F1: 49.1 %
-    Precisão: 52.1 %
+    Precisï¿½o: 52.1 %
     Recall": 47.8 %
     Tempo: 5.9837 s
 Multi-layer Perceptron
     F1: 60.7 %
-    Precisão: 61.3 %
+    Precisï¿½o: 61.3 %
     Recall": 60.9 %
     Tempo: 5.2988 s
 Naive Bayes
     F1: 29.6 %
-    Precisão: 29.7 %
+    Precisï¿½o: 29.7 %
     Recall": 29.8 %
     Tempo: 0.0157 s
 
 
 ---------------------------------------
----------- NOVA CLASSIFICAÇÃO ----------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
 
-Data Execução: 2022-03-08 19:57
+Data Execuï¿½ï¿½o: 2022-03-08 19:57
 
-Data Execução: 2022-03-08 19:57
+Data Execuï¿½ï¿½o: 2022-03-08 19:57
 RGB + HSV (SEM FILTRO)
 Random Forest
     F1: 55.3 %
-    Precisão: 55.7 %
+    Precisï¿½o: 55.7 %
     Recall": 55.7 %
     Tempo: 5.7754 s
 Multi-layer Perceptron
     F1: 70.8 %
-    Precisão: 71.3 %
+    Precisï¿½o: 71.3 %
     Recall": 70.9 %
     Tempo: 18.2166 s
 Naive Bayes
     F1: 40.0 %
-    Precisão: 39.6 %
+    Precisï¿½o: 39.6 %
     Recall": 40.5 %
     Tempo: 0.0156 s
 
-Data Execução: 2022-03-08 19:57
+Data Execuï¿½ï¿½o: 2022-03-08 19:57
 RGB (SEM FILTRO)
 Random Forest
     F1: 63.8 %
-    Precisão: 63.9 %
+    Precisï¿½o: 63.9 %
     Recall": 64.4 %
     Tempo: 5.5589 s
 Multi-layer Perceptron
     F1: 54.8 %
-    Precisão: 55.5 %
+    Precisï¿½o: 55.5 %
     Recall": 55.0 %
     Tempo: 6.3401 s
 Naive Bayes
     F1: 60.4 %
-    Precisão: 60.5 %
+    Precisï¿½o: 60.5 %
     Recall": 60.9 %
     Tempo: 0.0164 s
 
-Data Execução: 2022-03-08 19:58
+Data Execuï¿½ï¿½o: 2022-03-08 19:58
 HSV (SEM FILTRO)
 Random Forest
     F1: 49.1 %
-    Precisão: 52.1 %
+    Precisï¿½o: 52.1 %
     Recall": 47.8 %
     Tempo: 6.4173 s
 Multi-layer Perceptron
     F1: 60.7 %
-    Precisão: 61.3 %
+    Precisï¿½o: 61.3 %
     Recall": 60.9 %
     Tempo: 5.3866 s
 Naive Bayes
     F1: 29.6 %
-    Precisão: 29.7 %
+    Precisï¿½o: 29.7 %
     Recall": 29.8 %
     Tempo: 0.0223 s
 
 
 ---------------------------------------
----------- NOVA CLASSIFICAÇÃO ----------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
 
-Data Execução: 2022-03-08 21:03
+Data Execuï¿½ï¿½o: 2022-03-08 21:03
 
-Data Execução: 2022-03-08 21:04
+Data Execuï¿½ï¿½o: 2022-03-08 21:04
 RGB + HSV (SEM FILTRO)
 Random Forest
     F1: 54.4 %
-    Precisão: 54.2 %
+    Precisï¿½o: 54.2 %
     Recall": 55.4 %
     Tempo: 0.7352 s
 Multi-layer Perceptron
     F1: 70.8 %
-    Precisão: 71.3 %
+    Precisï¿½o: 71.3 %
     Recall": 70.9 %
     Tempo: 16.5329 s
 Naive Bayes
     F1: 40.0 %
-    Precisão: 39.6 %
+    Precisï¿½o: 39.6 %
     Recall": 40.5 %
     Tempo: 0.016 s
 
-Data Execução: 2022-03-08 21:04
+Data Execuï¿½ï¿½o: 2022-03-08 21:04
 RGB (SEM FILTRO)
 Random Forest
     F1: 66.3 %
-    Precisão: 67.0 %
+    Precisï¿½o: 67.0 %
     Recall": 66.4 %
     Tempo: 0.7054 s
 Multi-layer Perceptron
     F1: 54.8 %
-    Precisão: 55.5 %
+    Precisï¿½o: 55.5 %
     Recall": 55.0 %
     Tempo: 4.6864 s
 Naive Bayes
     F1: 60.4 %
-    Precisão: 60.5 %
+    Precisï¿½o: 60.5 %
     Recall": 60.9 %
     Tempo: 0.0142 s
 
-Data Execução: 2022-03-08 21:04
+Data Execuï¿½ï¿½o: 2022-03-08 21:04
 HSV (SEM FILTRO)
 Random Forest
     F1: 47.5 %
-    Precisão: 48.6 %
+    Precisï¿½o: 48.6 %
     Recall": 47.8 %
     Tempo: 0.7045 s
 Multi-layer Perceptron
     F1: 60.7 %
-    Precisão: 61.3 %
+    Precisï¿½o: 61.3 %
     Recall": 60.9 %
     Tempo: 4.692 s
 Naive Bayes
     F1: 29.6 %
-    Precisão: 29.7 %
+    Precisï¿½o: 29.7 %
     Recall": 29.8 %
     Tempo: 0.0153 s
 
 
 ---------------------------------------
----------- NOVA CLASSIFICAÇÃO ----------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
 
-Data Execução: 2022-03-08 21:05
+Data Execuï¿½ï¿½o: 2022-03-08 21:05
 
-Data Execução: 2022-03-08 21:06
+Data Execuï¿½ï¿½o: 2022-03-08 21:06
 RGB + HSV (SEM FILTRO)
 Random Forest
     F1: 55.3 %
-    Precisão: 55.7 %
+    Precisï¿½o: 55.7 %
     Recall": 55.7 %
     Tempo: 5.557 s
 Multi-layer Perceptron
     F1: 70.8 %
-    Precisão: 71.3 %
+    Precisï¿½o: 71.3 %
     Recall": 70.9 %
     Tempo: 16.528 s
 Naive Bayes
     F1: 40.0 %
-    Precisão: 39.6 %
+    Precisï¿½o: 39.6 %
     Recall": 40.5 %
     Tempo: 0.0169 s
 
-Data Execução: 2022-03-08 21:06
+Data Execuï¿½ï¿½o: 2022-03-08 21:06
 RGB (SEM FILTRO)
 Random Forest
     F1: 63.8 %
-    Precisão: 63.9 %
+    Precisï¿½o: 63.9 %
     Recall": 64.4 %
     Tempo: 4.7254 s
 Multi-layer Perceptron
     F1: 54.8 %
-    Precisão: 55.5 %
+    Precisï¿½o: 55.5 %
     Recall": 55.0 %
     Tempo: 4.8343 s
 Naive Bayes
     F1: 60.4 %
-    Precisão: 60.5 %
+    Precisï¿½o: 60.5 %
     Recall": 60.9 %
     Tempo: 0.0153 s
 
-Data Execução: 2022-03-08 21:06
+Data Execuï¿½ï¿½o: 2022-03-08 21:06
 HSV (SEM FILTRO)
 Random Forest
     F1: 49.1 %
-    Precisão: 52.1 %
+    Precisï¿½o: 52.1 %
     Recall": 47.8 %
     Tempo: 4.5777 s
 Multi-layer Perceptron
     F1: 60.7 %
-    Precisão: 61.3 %
+    Precisï¿½o: 61.3 %
     Recall": 60.9 %
     Tempo: 4.717 s
 Naive Bayes
     F1: 29.6 %
-    Precisão: 29.7 %
+    Precisï¿½o: 29.7 %
     Recall": 29.8 %
     Tempo: 0.012 s
+
+
+---------------------------------------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:02
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:03
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 55.3 %
+    Precisï¿½o: 55.7 %
+    Recall": 55.7 %
+    Tempo: 4.7565 s
+Multi-layer Perceptron
+    F1: 71.4 %
+    Precisï¿½o: 72.5 %
+    Recall": 71.3 %
+    Tempo: 21.6706 s
+Naive Bayes
+    F1: 40.0 %
+    Precisï¿½o: 39.6 %
+    Recall": 40.5 %
+    Tempo: 0.0171 s
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:03
+RGB (SEM FILTRO)
+Random Forest
+    F1: 63.8 %
+    Precisï¿½o: 63.9 %
+    Recall": 64.4 %
+    Tempo: 5.0969 s
+Multi-layer Perceptron
+    F1: 61.2 %
+    Precisï¿½o: 61.6 %
+    Recall": 61.6 %
+    Tempo: 18.0383 s
+Naive Bayes
+    F1: 60.4 %
+    Precisï¿½o: 60.5 %
+    Recall": 60.9 %
+    Tempo: 0.0149 s
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:04
+HSV (SEM FILTRO)
+Random Forest
+    F1: 49.1 %
+    Precisï¿½o: 52.1 %
+    Recall": 47.8 %
+    Tempo: 5.2065 s
+Multi-layer Perceptron
+    F1: 57.8 %
+    Precisï¿½o: 58.1 %
+    Recall": 57.8 %
+    Tempo: 17.8609 s
+Naive Bayes
+    F1: 29.6 %
+    Precisï¿½o: 29.7 %
+    Recall": 29.8 %
+    Tempo: 0.0144 s
+
+
+---------------------------------------
+---------- NOVA CLASSIFICAï¿½ï¿½O ----------
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:32
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:33
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 58.0 %
+    Precisï¿½o: 57.3 %
+    Recall": 59.2 %
+    Tempo: 6.4284 s
+Multi-layer Perceptron
+    F1: 71.4 %
+    Precisï¿½o: 72.5 %
+    Recall": 71.3 %
+    Tempo: 24.3827 s
+Naive Bayes
+    F1: 40.0 %
+    Precisï¿½o: 39.6 %
+    Recall": 40.5 %
+    Tempo: 0.0145 s
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:33
+RGB (SEM FILTRO)
+Random Forest
+    F1: 66.6 %
+    Precisï¿½o: 67.3 %
+    Recall": 66.8 %
+    Tempo: 5.841 s
+Multi-layer Perceptron
+    F1: 61.2 %
+    Precisï¿½o: 61.6 %
+    Recall": 61.6 %
+    Tempo: 17.5308 s
+Naive Bayes
+    F1: 60.4 %
+    Precisï¿½o: 60.5 %
+    Recall": 60.9 %
+    Tempo: 0.014 s
+
+Data Execuï¿½ï¿½o: 2022-03-11 16:34
+HSV (SEM FILTRO)
+Random Forest
+    F1: 47.9 %
+    Precisï¿½o: 48.9 %
+    Recall": 48.4 %
+    Tempo: 5.7598 s
+Multi-layer Perceptron
+    F1: 57.8 %
+    Precisï¿½o: 58.1 %
+    Recall": 57.8 %
+    Tempo: 17.1102 s
+Naive Bayes
+    F1: 29.6 %
+    Precisï¿½o: 29.7 %
+    Recall": 29.8 %
+    Tempo: 0.0144 s
+
+
+------------------------------------------------- NOVA CLASSIFICAï¿½ï¿½O ----------
+
+Data Execuï¿½ï¿½o: 2022-03-13 18:29
+
+Data Execuï¿½ï¿½o: 2022-03-13 18:30
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 58.0 %
+    Precisï¿½o: 57.3 %
+    Recall": 59.2 %
+    Tempo: 5.3546 s
+Multi-layer Perceptron
+    F1: 71.4 %
+    Precisï¿½o: 72.5 %
+    Recall": 71.3 %
+    Tempo: 22.3446 s
+Naive Bayes
+    F1: 40.0 %
+    Precisï¿½o: 39.6 %
+    Recall": 40.5 %
+    Tempo: 0.0144 s
+
+Data Execuï¿½ï¿½o: 2022-03-13 18:30
+RGB (SEM FILTRO)
+Random Forest
+    F1: 66.6 %
+    Precisï¿½o: 67.3 %
+    Recall": 66.8 %
+    Tempo: 5.7827 s
+Multi-layer Perceptron
+    F1: 61.2 %
+    Precisï¿½o: 61.6 %
+    Recall": 61.6 %
+    Tempo: 17.1552 s
+Naive Bayes
+    F1: 60.4 %
+    Precisï¿½o: 60.5 %
+    Recall": 60.9 %
+    Tempo: 0.0238 s
+
+Data Execuï¿½ï¿½o: 2022-03-13 18:31
+HSV (SEM FILTRO)
+Random Forest
+    F1: 47.9 %
+    Precisï¿½o: 48.9 %
+    Recall": 48.4 %
+    Tempo: 5.5419 s
+Multi-layer Perceptron
+    F1: 57.8 %
+    Precisï¿½o: 58.1 %
+    Recall": 57.8 %
+    Tempo: 16.0258 s
+Naive Bayes
+    F1: 29.6 %
+    Precisï¿½o: 29.7 %
+    Recall": 29.8 %
+    Tempo: 0.0147 s
+
+
+---------------------------------------
+
+
+
+/// NOVO DATASET + 200 FOTOS
+
+
+---------- NOVA CLASSIFICAÇÃO ----------
+
+Data Execução: 2022-03-22 18:51
+
+Data Execução: 2022-03-22 18:51
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 68.3 %
+    Precisão: 68.5 %
+    Recall": 68.9 %
+    Tempo: 7.9544 s
+Multi-layer Perceptron
+    F1: 56.9 %
+    Precisão: 56.9 %
+    Recall": 57.6 %
+    Tempo: 35.4432 s
+Naive Bayes
+    F1: 63.1 %
+    Precisão: 63.7 %
+    Recall": 63.5 %
+    Tempo: 0.0179 s
+
+Data Execução: 2022-03-22 18:52
+RGB (SEM FILTRO)
+Random Forest
+    F1: 70.9 %
+    Precisão: 71.4 %
+    Recall": 71.1 %
+    Tempo: 8.0471 s
+Multi-layer Perceptron
+    F1: 64.9 %
+    Precisão: 65.9 %
+    Recall": 65.0 %
+    Tempo: 16.2589 s
+Naive Bayes
+    F1: 70.4 %
+    Precisão: 71.6 %
+    Recall": 70.7 %
+    Tempo: 0.0595 s
+
+Data Execução: 2022-03-22 18:52
+HSV (SEM FILTRO)
+Random Forest
+    F1: 62.6 %
+    Precisão: 63.3 %
+    Recall": 63.0 %
+    Tempo: 7.381 s
+Multi-layer Perceptron
+    F1: 54.3 %
+    Precisão: 54.2 %
+    Recall": 54.7 %
+    Tempo: 25.0074 s
+Naive Bayes
+    F1: 46.1 %
+    Precisão: 46.7 %
+    Recall": 47.0 %
+    Tempo: 0.1141 s
+
+
+---------------------------------------
+---------- NOVA CLASSIFICAÇÃO ----------
+
+Data Execução: 2022-03-22 19:02
+
+Data Execução: 2022-03-22 19:03
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 68.3 %
+    Precisão: 68.5 %
+    Recall": 68.9 %
+    Tempo: 7.2793 s
+Multi-layer Perceptron
+    F1: 53.6 %
+    Precisão: 54.8 %
+    Recall": 54.0 %
+    Tempo: 6.8081 s
+Naive Bayes
+    F1: 63.1 %
+    Precisão: 63.7 %
+    Recall": 63.5 %
+    Tempo: 0.0213 s
+
+Data Execução: 2022-03-22 19:03
+RGB (SEM FILTRO)
+Random Forest
+    F1: 70.9 %
+    Precisão: 71.4 %
+    Recall": 71.1 %
+    Tempo: 6.207 s
+Multi-layer Perceptron
+    F1: 47.7 %
+    Precisão: 47.8 %
+    Recall": 48.3 %
+    Tempo: 17.1542 s
+Naive Bayes
+    F1: 70.4 %
+    Precisão: 71.6 %
+    Recall": 70.7 %
+    Tempo: 0.0298 s
+
+Data Execução: 2022-03-22 19:03
+HSV (SEM FILTRO)
+Random Forest
+    F1: 62.6 %
+    Precisão: 63.3 %
+    Recall": 63.0 %
+    Tempo: 6.8329 s
+Multi-layer Perceptron
+    F1: 58.7 %
+    Precisão: 59.7 %
+    Recall": 59.5 %
+    Tempo: 6.138 s
+Naive Bayes
+    F1: 46.1 %
+    Precisão: 46.7 %
+    Recall": 47.0 %
+    Tempo: 0.0169 s
+
+
+---------------------------------------
+---------- NOVA CLASSIFICAÇÃO ----------
+
+Data Execução: 2022-03-22 19:03
+
+Data Execução: 2022-03-22 19:04
+RGB + HSV (SEM FILTRO)
+Random Forest
+    F1: 68.3 %
+    Precisão: 68.5 %
+    Recall": 68.9 %
+    Tempo: 7.0705 s
+Multi-layer Perceptron
+    F1: 53.6 %
+    Precisão: 54.8 %
+    Recall": 54.0 %
+    Tempo: 7.5315 s
+Naive Bayes
+    F1: 63.1 %
+    Precisão: 63.7 %
+    Recall": 63.5 %
+    Tempo: 0.0169 s
+
+Data Execução: 2022-03-22 19:04
+RGB (SEM FILTRO)
+Random Forest
+    F1: 70.9 %
+    Precisão: 71.4 %
+    Recall": 71.1 %
+    Tempo: 8.2951 s
+Multi-layer Perceptron
+    F1: 47.7 %
+    Precisão: 47.8 %
+    Recall": 48.3 %
+    Tempo: 16.9086 s
+Naive Bayes
+    F1: 70.4 %
+    Precisão: 71.6 %
+    Recall": 70.7 %
+    Tempo: 0.018 s
+
+Data Execução: 2022-03-22 19:04
+HSV (SEM FILTRO)
+Random Forest
+    F1: 62.6 %
+    Precisão: 63.3 %
+    Recall": 63.0 %
+    Tempo: 6.2734 s
+Multi-layer Perceptron
+    F1: 58.7 %
+    Precisão: 59.7 %
+    Recall": 59.5 %
+    Tempo: 4.6589 s
+Naive Bayes
+    F1: 46.1 %
+    Precisão: 46.7 %
+    Recall": 47.0 %
+    Tempo: 0.0189 s
 
 
 ---------------------------------------

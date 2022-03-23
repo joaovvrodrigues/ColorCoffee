@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:koffee/view/splash/new_splash.dart';
 
 import 'theme/theme.dart';
+import 'view/splash/new_splash.dart';
 
 void configLoading() {
   EasyLoading.instance

@@ -59,6 +59,45 @@ def randomColor():
         "rgb": [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255)]
     }), 200
 
+@app.route('/send', methods=['POST'])
+def send():
+    if request.method == 'POST':
+        # Se imagem não for encontrada
+        if 'cafe' not in request.files and 'folha' not in request.files:
+            return "File not found", 400
+
+        # Se nome igual a vazio
+        cafe = request.files['cafe']
+        if cafe.filename == '':
+            return "File name not found", 403
+        
+        folha = request.files['folha']
+        if folha.filename == '':
+            return "File name not found", 403
+
+        else:
+            # Salvando imagem em disco
+            path = os.path.join(
+                os.getcwd()+'\\static\\images\\'+cafe.filename)
+            cafe.save(path)
+
+            path = os.path.join(
+                os.getcwd()+'\\static\\images\\'+folha.filename)
+            folha.save(path)
+            
+            # Para salvar imagem no banco de dados
+            # db.addNewImage(
+            #     image.filename,
+            #     datetime.now(),
+            #     UPLOAD_URL+image.filename)
+
+            return jsonify({
+                "color" : "color",
+                "prediction" : "55",
+                "confidence" : "96",
+                "rgb" : [random.randint(0,255), random.randint(0,255), random.randint(0,255)]
+            }), 200
+
 
 @app.route('/analisys', methods=['POST'])
 def analisys():

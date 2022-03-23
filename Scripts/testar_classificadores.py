@@ -40,10 +40,12 @@ from sklearn.feature_selection import RFE
 
 RANDOM_STATE = 42
 EXPORT_MATRIZ = True
-DEBUG_PRINT = False
+DEBUG_PRINT = True
 arquivo = ''
 
 # Define cores no print
+
+
 class bcolors:
     WARNING = '\033[93m'
     FAIL = '\033[91m'
@@ -54,25 +56,31 @@ class bcolors:
     BOLD = '\033[1m'
 
 # Função para configurar e retornar os classificadores
+
+
 def configurarClassificadores():
     # Floresta Aleatória
-    # {'bootstrap': True, 'class_weight': 'balanced', 'criterion': 'entropy', 'max_depth': 4, 'max_features': 'sqrt', 'n_estimators': 100, 'random_state': 42}
-    randomForest = RandomForestClassifier(n_estimators=500, max_depth=12, bootstrap=True, criterion= 'entropy', 
-       max_features="auto", random_state=RANDOM_STATE, class_weight="balanced_subsample")
-    
+    randomForest = RandomForestClassifier(n_estimators=600, max_depth=4, criterion='gini',
+                                          random_state=RANDOM_STATE, class_weight="balanced_subsample")
+
+    # DEPOIS TESTA 200 e 500
     # randomForest = RFE(randomForest, n_features_to_select=None, step=1)
 
     # {'activation': 'identity', 'alpha': 0.0001, 'hidden_layer_sizes': (1, 2), 'learning_rate': 'adaptive', 'random_state': 42, 'solver': 'lbfgs'}
     # Perceptron Multicamadas
-    mplc = MLPClassifier(max_iter=25000,alpha= 0.0001, activation='identity', learning_rate='adaptive',
-                         solver='lbfgs', hidden_layer_sizes=(1, 2), random_state=RANDOM_STATE)
+    # mplc = MLPClassifier(max_iter=25000,alpha= 0.0001, activation='identity', learning_rate='adaptive',
+    #                      solver='lbfgs', hidden_layer_sizes=(1, 2), random_state=RANDOM_STATE)
 
+    mplc = MLPClassifier(max_iter=25000, alpha=0.0001, activation='identity', learning_rate='adaptive',
+                         solver='lbfgs', hidden_layer_sizes=(9,2), random_state=RANDOM_STATE)
     # Naive Bayes
     mnb = MultinomialNB()
 
     return randomForest, mplc, mnb
 
 # Função para configurar e aplicar o KFold, retornando predição e tempo decorrido
+
+
 def aplicarKFold(classificador, x, y):
     # Configurando KFold
     kfold = KFold(n_splits=5, shuffle=False)
@@ -88,6 +96,8 @@ def aplicarKFold(classificador, x, y):
     return pred, tempo
 
 # Função para mostrar em tela todas as métricas e tempo decorrido de todos os modelos
+
+
 def printMetricas(pred1, tempo1, pred2, tempo2, pred3, tempo3, y, ESPACO_COR, FILTRO):
     # Pega F1_Score, Precisão e Recall.
     randomForest_f1 = f1_score(
@@ -149,20 +159,20 @@ def printMetricas(pred1, tempo1, pred2, tempo2, pred3, tempo3, y, ESPACO_COR, FI
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{nb}{bcolors.ENDC}\n")
     print(f"{bcolors.BOLD}{bcolors.OKGREEN}{'--------------------'}{bcolors.ENDC}\n")
 
-    arquivo.write("Data Execução: {}\n".format(datetime.today().strftime('%Y-%m-%d %H:%M')))
-    arquivo.write(info)
-    arquivo.write('\n')
-    arquivo.write('Random Forest\n')
-    arquivo.write(randomForest)
-    arquivo.write('\n')
-    arquivo.write('Multi-layer Perceptron\n')
-    arquivo.write(mplc)
-    arquivo.write('\n')
-    arquivo.write('Naive Bayes\n')
-    arquivo.write(nb)
-    arquivo.write('\n')
-    arquivo.write('\n')
-    
+    # arquivo.write("Data Execução: {}\n".format(
+    #     datetime.today().strftime('%Y-%m-%d %H:%M')))
+    # arquivo.write(info)
+    # arquivo.write('\n')
+    # arquivo.write('Random Forest\n')
+    # arquivo.write(randomForest)
+    # arquivo.write('\n')
+    # arquivo.write('Multi-layer Perceptron\n')
+    # arquivo.write(mplc)
+    # arquivo.write('\n')
+    # arquivo.write('Naive Bayes\n')
+    # arquivo.write(nb)
+    # arquivo.write('\n')
+    # arquivo.write('\n')
 
 
 # Função para salvar a matriz de confusão em disco como PDF
@@ -215,6 +225,8 @@ def matrizConfusao(nome, y, y_pred, ESPACO_COR, FILTRO):
     plt.savefig("{}{}.pdf".format(caminho, nome), bbox_inches='tight')
 
 # Função principal de Script, que irá chamar outras funções
+
+
 def script(x_axis, y_axis, ESPACO_COR, FILTRO):
     # Axis
     x = x_axis
@@ -241,9 +253,12 @@ def script(x_axis, y_axis, ESPACO_COR, FILTRO):
         matrizConfusao('mnb', y, mnb_pred, ESPACO_COR, FILTRO)
 
 # Função para montar o dataset conforme necessário
+
+
 def montarDataSet(FILE, ESPACO_COR):
     # Pegando a base e dividindo em treino e teste
-    dataframe = pd.read_csv('./dataset/{}.csv'.format(FILE))  # , delimiter = ';')
+    # , delimiter = ';')
+    dataframe = pd.read_csv('./dataset/{}.csv'.format(FILE))
 
     # Remove Agtron #95
     dataframe = dataframe[dataframe.Agtron != 'Agtron 95']
@@ -256,7 +271,9 @@ def montarDataSet(FILE, ESPACO_COR):
     # Deixa somente informações em RGB
     if(ESPACO_COR == 1):
         dataframe = dataframe.drop(
-            dataframe.columns[[10, 11, 12, 13,  14, 15, 16, 17, 18,  19]], axis=1)
+            dataframe.columns[[0, 4 , 10, 11, 12, 13,  14, 15, 16, 17, 18,  19]], axis=1)
+        # dataframe = dataframe.drop(
+        #     dataframe.columns[[0, 4]], axis=1)
 
     # Deixa somente informações em HSV
     if(ESPACO_COR == 2):
@@ -267,10 +284,12 @@ def montarDataSet(FILE, ESPACO_COR):
         print(dataframe.head(2))
         print(dataframe.columns)
         print('Data possui {} colunas'.format(len(dataframe.columns)))
-
+    
     return dataframe
 
 # Retorna todos os rótulos
+
+
 def pegarRotulos(FILE, ESPACO_COR):
     dataframe = montarDataSet(FILE, ESPACO_COR)
     array = dataframe.values
@@ -288,20 +307,25 @@ def pegarRotulos(FILE, ESPACO_COR):
 if __name__ == '__main__':
     # Ocultando os warnings
     warnings.filterwarnings(action='ignore')
-    arquivo = open('log_classificacoes.txt'.format(datetime.today().strftime('%Y-%m-%d %H')),'a')
-    arquivo.write('---------- NOVA CLASSIFICAÇÃO ----------\n')
-    arquivo.write('\n')
-    arquivo.write("Data Execução: {}\n\n".format(datetime.today().strftime('%Y-%m-%d %H:%M')))
-    
+    # arquivo = open('log_classificacoes.txt'.format(
+    #     datetime.today().strftime('%Y-%m-%d %H')), 'a')
+    # arquivo.write('---------- NOVA CLASSIFICAÇÃO ----------\n')
+    # arquivo.write('\n')
+    # arquivo.write("Data Execução: {}\n\n".format(
+    #     datetime.today().strftime('%Y-%m-%d %H:%M')))
+
     # Roda o primeiro teste SEM filtro
     FILTRO = False
     FILE = 'all_semfiltro_2'
     ESPACO_COR = 0
 
-    while ESPACO_COR < 3:
-        x, y = pegarRotulos(FILE, ESPACO_COR)
-        script(x, y, ESPACO_COR, FILTRO)
-        ESPACO_COR = ESPACO_COR + 1
+    # while ESPACO_COR < 3:
+    #     x, y = pegarRotulos(FILE, ESPACO_COR)
+    #     script(x, y, ESPACO_COR, FILTRO)
+    #     ESPACO_COR = ESPACO_COR + 1
+
+    x, y = pegarRotulos(FILE, 1)
+    script(x, y, 1, FILTRO)
 
     # # Roda o segundo teste COM filtro
     # FILTRO = True
@@ -312,6 +336,6 @@ if __name__ == '__main__':
     #     x, y = pegarRotulos(FILE, ESPACO_COR)
     #     script(x, y, ESPACO_COR, FILTRO)
     #     ESPACO_COR = ESPACO_COR + 1
-        
+
     arquivo.write('\n---------------------------------------\n')
     arquivo.close()

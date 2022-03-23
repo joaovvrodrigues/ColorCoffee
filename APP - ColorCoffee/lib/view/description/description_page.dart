@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../model/card_info.dart';
 
+import '../../model/card_info.dart';
 import '../../theme/theme.dart';
 
 class DescriptionPage extends StatefulWidget {
@@ -34,8 +34,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
   }
 
   bool get _isSliverAppBarExpanded {
-    return _scrollController.hasClients &&
-        _scrollController.offset > (200 - kToolbarHeight);
+    return _scrollController.hasClients && _scrollController.offset > (200 - kToolbarHeight);
   }
 
   @override
@@ -50,9 +49,7 @@ class _DescriptionPageState extends State<DescriptionPage> {
             leading: IconButton(
                 onPressed: () => Navigator.of(context).pop(),
                 icon: Icon(
-                  Platform.isAndroid
-                      ? Icons.arrow_back
-                      : Icons.arrow_back_ios_new_rounded,
+                  Platform.isAndroid ? Icons.arrow_back : Icons.arrow_back_ios_new_rounded,
                   color: _textColor,
                 )),
             expandedHeight: 250.0,
@@ -63,10 +60,8 @@ class _DescriptionPageState extends State<DescriptionPage> {
               child: FlexibleSpaceBar(
                 title: Hero(
                   tag: 'teste',
-                  child: Text(
-                      '${widget.cardInfo.title} ${widget.cardInfo.subtitle}',
-                      style: GoogleFonts.sourceSansPro(
-                          color: _textColor, fontWeight: FontWeight.w600),
+                  child: Text('${widget.cardInfo.title} ${widget.cardInfo.subtitle}',
+                      style: GoogleFonts.sourceSansPro(color: _textColor, fontWeight: FontWeight.w600),
                       textScaleFactor: 1),
                 ),
                 background: Image.asset(
@@ -80,30 +75,23 @@ class _DescriptionPageState extends State<DescriptionPage> {
             child: Column(
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 24),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
                   child: Text(widget.cardInfo.text,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.sourceSansPro(
-                          color: AppTheme.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600)),
+                      textAlign: TextAlign.start,
+                      style:
+                          GoogleFonts.sourceSansPro(color: AppTheme.black, fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 12.0, horizontal: 24),
+                  padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 24),
                   child: Text(widget.cardInfo.text,
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.sourceSansPro(
-                          color: AppTheme.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600)),
+                      textAlign: TextAlign.start,
+                      style:
+                          GoogleFonts.sourceSansPro(color: AppTheme.black, fontSize: 15, fontWeight: FontWeight.w600)),
                 ),
                 Center(
                     child: Padding(
                   padding: const EdgeInsets.only(top: 2, bottom: 12.0),
-                  child: Text(
-                      'Fundo foto criado por ${widget.cardInfo.imageAuthor}',
+                  child: Text('Fundo foto criado por ${widget.cardInfo.imageAuthor}',
                       style: GoogleFonts.sourceSansPro(
                         color: AppTheme.black,
                         fontSize: 12,
@@ -180,13 +168,10 @@ class BackgroundClipper extends CustomClipper<Path> {
     path.lineTo(size.width, size.height);
 
     path.lineTo(size.width, roundnessFactor * 2);
-    path.quadraticBezierTo(size.width - 10, roundnessFactor,
-        size.width - roundnessFactor * 2, roundnessFactor * 1.5);
+    path.quadraticBezierTo(size.width - 10, roundnessFactor, size.width - roundnessFactor * 2, roundnessFactor * 1.5);
 
-    path.lineTo(
-        roundnessFactor * 0.6, size.height * 0.60 - roundnessFactor * 0.3);
-    path.quadraticBezierTo(
-        0, size.height * 0.60, 0, size.height * 0.60 + roundnessFactor);
+    path.lineTo(roundnessFactor * 0.6, size.height * 0.60 - roundnessFactor * 0.3);
+    path.quadraticBezierTo(0, size.height * 0.60, 0, size.height * 0.60 + roundnessFactor);
 
     return path;
   }

@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
+
 import '../../../model/card_info.dart';
 import '../../../theme/theme.dart';
 import '../../description/description_page.dart';
 
 @immutable
 class CardWithText extends StatelessWidget {
-  const CardWithText({
-    Key? key,
-    required this.cardInfo
-  }) : super(key: key);
+  const CardWithText({Key? key, required this.cardInfo}) : super(key: key);
   final CardInfo cardInfo;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () => Navigator.push(context,
-            MaterialPageRoute(builder: (context) =>  DescriptionPage(cardInfo: cardInfo))),
+        onTap: () =>
+            Navigator.push(context, MaterialPageRoute(builder: (context) => DescriptionPage(cardInfo: cardInfo))),
         child: Container(
           height: MediaQuery.of(context).size.height * 0.25,
           margin: const EdgeInsets.symmetric(horizontal: 24, vertical: 6),
@@ -56,27 +54,24 @@ class CardWithText extends StatelessWidget {
       bottom: 20,
       child: Hero(
         tag: 'teste',
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              cardInfo.title,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            Text(
-             cardInfo.subtitle,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
+        child: RichText(
+            text: TextSpan(
+                text: cardInfo.title,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+                children: <TextSpan>[
+              TextSpan(
+                text: '\n' + cardInfo.subtitle,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              )
+            ])),
       ),
     );
   }
